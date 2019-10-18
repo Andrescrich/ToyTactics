@@ -14,8 +14,8 @@ public class Walkable : MonoBehaviour
     
     private void Awake()
     {
-        nodePos = transform.position + transform.up * 1.5f + -transform.right;
-        hitCollider = Physics.OverlapSphere(transform.position + -transform.right + transform.up * .5f, 1.5f, ground);
+        nodePos = transform.position + transform.forward * .5f;
+        hitCollider = Physics.OverlapSphere(transform.position, 1.5f, ground);
         foreach (var collision in hitCollider)
         {
             if (collision.gameObject != gameObject) 
@@ -25,15 +25,14 @@ public class Walkable : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-      //  Gizmos.DrawSphere(transform.position + -transform.right + transform.up*.5f, 1.5f);
+      //  Gizmos.DrawSphere(transform.position    , 1.5f);
         Gizmos.color = Color.gray;
-        Gizmos.DrawSphere(transform.position + transform.up*1.5f + -transform.right, .1f);
+        Gizmos.DrawSphere(transform.position, .1f);
         foreach (var nextNode in possiblePaths)
         {
             if (nextNode.active)
             {
-                Gizmos.DrawLine(transform.position + transform.up + -transform.right, nextNode.target.position
-             + nextNode.target.up + -nextNode.target.right);
+                Gizmos.DrawLine(transform.position, nextNode.target.position);
             }
         }
     }

@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
 
-    private Transform currentCube;
+    public Transform currentCube;
     private Transform clickedCube;
     private List<Transform> finalPath; 
     private List<Transform> nextCubes = new List<Transform>();
@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         var playerRay = new Ray(transform.GetChild(0).position, -transform.up);
         if (Physics.Raycast(playerRay, out var playerHit))
         {
+            Debug.Log(playerHit.transform.name);
             if (playerHit.transform.GetComponent<Walkable>() != null)
             {
                 currentCube = playerHit.transform;
@@ -178,7 +179,7 @@ public class PlayerController : MonoBehaviour
         nextNextCubes.Clear();
     }
 
-    private void OnMouseEnter()
+ /*   private void OnMouseEnter()
     {
         gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = highlighted;
     }
@@ -186,7 +187,7 @@ public class PlayerController : MonoBehaviour
     private void OnMouseExit()
     {
         gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = normal;
-    }
+    }*/
 
     private void ReachedClicked()
     {

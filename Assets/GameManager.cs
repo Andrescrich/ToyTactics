@@ -6,12 +6,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject whoIsPlaying;
+    public List<GameObject> players;
 
     private void Awake()
     {
         instance = this;
     }
+
+    private void Start()
+    {
+        
+    }
     
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -21,10 +29,17 @@ public class GameManager : MonoBehaviour
             {
                 if (mouseHit.transform.GetChild(0).tag == "Player")
                 {
-                    mouseHit.transform.GetComponent<PlayerController>().enabled = true;
+                    SelectPlayer(mouseHit.transform.GetComponent<PlayerController>());
                     enabled = false;
                 }
             }
         }
+    }
+
+    public void SelectPlayer(PlayerController player)
+    {
+        player.enabled = true;
+        enabled = false;
+        player.nTurns = 1;
     }
 }

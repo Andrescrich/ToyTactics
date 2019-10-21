@@ -18,11 +18,17 @@ public class PlayerController : MonoBehaviour
     private bool possiblePath;
     private bool enableInput = true;
     private bool moving = false;
-    [SerializeField] private int nTurns;
+    public int nTurns;
     
     public Material highlighted;
     public Material normal;
     public Material highlighted2;
+    public GameObject selectedTriangle;
+
+    private void Awake()
+    {
+        selectedTriangle = transform.GetChild(1).gameObject;
+    }
 
     private void Start()
     {
@@ -178,16 +184,16 @@ public class PlayerController : MonoBehaviour
         nextCubes.Clear();
         nextNextCubes.Clear();
     }
-
- /*   private void OnMouseEnter()
+    private void OnMouseEnter()
     {
-        gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = highlighted;
+        selectedTriangle.SetActive(true);
     }
     
     private void OnMouseExit()
     {
-        gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = normal;
-    }*/
+        if(gameObject.GetComponent<PlayerController>().enabled != true)
+         selectedTriangle.SetActive(false);
+    }
 
     private void ReachedClicked()
     {
@@ -201,8 +207,16 @@ public class PlayerController : MonoBehaviour
         nTurns--;
     }
 
+    private void OnEnable()
+    {
+        selectedTriangle.SetActive(true);
+        GameManager.instance.whoIsPlaying = gameObject;
+    }
+
     private void OnDisable()
     {
+        selectedTriangle.SetActive(false);
+        GameManager.instance.whoIsPlaying = null;
         foreach (var cube in nextCubes)
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;

@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public Image panelVidas;
     public Text selectedPlayerNameText;
     public Image selectedPlayerPanel;
+    public Text TurnText;
 
 
     private void Start()
@@ -37,6 +38,15 @@ public class UIManager : MonoBehaviour
         {
             selectedPlayerPanel.gameObject.SetActive(false);
             panelVidas.gameObject.SetActive(true);
+        }
+
+
+        if (GameManager.instance.gameState == GameStates.PlayerTurn)
+        {
+            TurnText.text = "PlayerTurn";
+        } else if (GameManager.instance.gameState == GameStates.EnemyTurn)
+        {
+            TurnText.text = "EnemyTurn";
         }
     }
 

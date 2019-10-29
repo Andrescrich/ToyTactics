@@ -15,6 +15,7 @@ public class Walkable : MonoBehaviour
     private void Awake()
     {
         nodePos = transform.position + transform.forward * .5f;
+        Debug.Log(nodePos.y);
         hitCollider = Physics.OverlapSphere(transform.position, 1.5f, ground);
         foreach (var collision in hitCollider)
         {
@@ -27,7 +28,7 @@ public class Walkable : MonoBehaviour
     {
       //  Gizmos.DrawSphere(transform.position    , 1.5f);
         Gizmos.color = Color.gray;
-        Gizmos.DrawSphere(transform.position, .1f);
+        Gizmos.DrawSphere(transform.position + transform.forward * .5f, .1f);
         foreach (var nextNode in possiblePaths)
         {
             if (nextNode.active)

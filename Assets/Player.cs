@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,4 +11,11 @@ public class Player : MonoBehaviour
         GameManager.instance.players.Add(gameObject);
     }
 
+    private void Update()
+    {
+        if (GetComponent<PlayerController>().nTurns == 0)
+        {
+            GameManager.instance.players.Remove(gameObject);
+        }
+    }
 }

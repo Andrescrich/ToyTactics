@@ -140,6 +140,8 @@ public class PlayerController : MonoBehaviour
     private void MoveToClicked()
     {
         if (clickedCube == null) return;
+        var lookPos = new Vector3(clickedCube.position.x, transform.position.y, clickedCube.position.z);
+        transform.LookAt(lookPos);
         if (nextCubes.Contains(clickedCube))
             transform.position = Vector3.MoveTowards(transform.position, clickedCube.GetComponent<Walkable>().nodePos,
                 5f * Time.fixedDeltaTime);
@@ -164,17 +166,23 @@ public class PlayerController : MonoBehaviour
     
     private IEnumerator Move2Blocks(Transform firstCube, Transform secondCube)
     {
+        var lookPos = new Vector3(firstCube.position.x, transform.position.y, firstCube.position.z);
+        transform.LookAt(lookPos);
+        
         while (transform.position != firstCube.GetComponent<Walkable>().nodePos)
         {
             transform.position = Vector3.MoveTowards(transform.position, firstCube.GetComponent<Walkable>().nodePos,
                 5f * Time.fixedDeltaTime);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
+        
+        var lookPos2 = new Vector3(secondCube.position.x, transform.position.y, secondCube.position.z);
+        transform.LookAt(lookPos2);
         while (transform.position != secondCube.GetComponent<Walkable>().nodePos)
         {
             transform.position = Vector3.MoveTowards(transform.position, secondCube.GetComponent<Walkable>().nodePos,
                 5f * Time.fixedDeltaTime);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
         ReachedClicked();
     }

@@ -6,16 +6,30 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    private void Start()
+    public delegate void EndOfTurn();
+
+    public static event EndOfTurn EndOfTurnEvent;
+    private void Awake()
     {
-        GameManager.instance.players.Add(gameObject);
+        
+        GameManager.turnChanging += AddToPlayable;
     }
 
-    private void Update()
+    private void AddToPlayable()
     {
-        if (GetComponent<PlayerController>().nTurns == 0)
+        if (gameObject.CompareTag("Player") && GameManager.instance.gameState == GameStates.PlayerTurn)
         {
-            GameManager.instance.players.Remove(gameObject);
+            GameManager.instance.players.Add(gameObject);
+            gameObject.GetComponent<PlayerController>().canBePlayed = true;
+        } else if (gameObject.CompareTag("Enemy") && GameManager.instance.gameState == GameStates.EnemyTurn)
+        {
+            GameManager.instance.players.Add(gameObject);
         }
+    }
+
+    public void RemoveFromPlayable()
+    {
+        EndOfTurnEvent?.Invoke();
+        GameManager.instance.players.Remove(gameObject);
     }
 }

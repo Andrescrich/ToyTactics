@@ -13,18 +13,19 @@ public class PlayerController : MonoBehaviour
     public Transform currentCube;
     private Transform clickedCube;
     private List<Transform> finalPath; 
-    private List<Transform> nextCubes = new List<Transform>();
-    private List<Transform> nextNextCubes = new List<Transform>();
+    public List<Transform> nextCubes = new List<Transform>();
+    public List<Transform> nextNextCubes = new List<Transform>();
     private bool possiblePath;
     private bool enableInput = true;
     private bool moving = false;
-    public int nTurns;
+    public bool canBePlayed;
     
     public Material highlighted;
     public Material normal;
     public Material highlighted2;
     public GameObject selectedTriangle;
-
+    
+    
     private void Awake()
     {
         selectedTriangle = transform.GetChild(1).gameObject;
@@ -38,12 +39,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (nTurns == 0)
-        {
-            GameManager.instance.enabled = true;
-            enabled = false;
-        }
-        
         if (Input.GetMouseButtonDown(0) && enableInput)
         {
             var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -121,7 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach (var path in currentCube.GetComponent<Walkable>().possiblePaths)
         {
-            if (path.active)
+            if (path.active && path.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
                 nextCubes.Add(path.target);
            
         }
@@ -129,9 +124,10 @@ public class PlayerController : MonoBehaviour
         {
             foreach (var path2 in p.GetComponent<Walkable>().possiblePaths)
             {
-                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target)
+                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target
+                    && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
                     nextNextCubes.Add(path2.target);
-                else  
+                else 
                     nextNextCubes.Remove(path2.target);
             }
         }
@@ -194,7 +190,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        selectedTriangle.SetActive(true);
+        if(GameManager.instance.gameState == GameStates.PlayerTurn && canBePlayed)
+          selectedTriangle.SetActive(true);
     }
     
     private void OnMouseExit()
@@ -211,12 +208,17 @@ public class PlayerController : MonoBehaviour
         RayCastDown();
         Clear();
         FindPath();
+        GetComponent<Player>().RemoveFromPlayable();
         moving = false;
-        nTurns--;
+        canBePlayed = false;
+        GameManager.instance.enabled = true;
+        enabled = false;
     }
 
     private void OnEnable()
     {
+        Clear();
+        FindPath();
         selectedTriangle.SetActive(true);
         GameManager.instance.whoIsPlaying = gameObject;
     }

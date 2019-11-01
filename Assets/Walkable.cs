@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Transactions;
-using TreeEditor;
 using UnityEngine;
 
 public class Walkable : MonoBehaviour
 {
     public List<GamePath> possiblePaths = new List<GamePath>();
     private Collider[] hitCollider;
+    public Collider[] pieceOnNode;
     [HideInInspector] public Vector3 nodePos;
     public LayerMask ground;
-    
+
     private void Awake()
     {
+        Player.EndOfTurnEvent += CheckWhoIsOnNode;
         nodePos = transform.position + transform.forward * .5f;
-        Debug.Log(nodePos.y);
         hitCollider = Physics.OverlapSphere(transform.position, 1.5f, ground);
+        CheckWhoIsOnNode();
         foreach (var collision in hitCollider)
         {
             if (collision.gameObject != gameObject) 
@@ -26,7 +25,7 @@ public class Walkable : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-      //  Gizmos.DrawSphere(transform.position    , 1.5f);
+    //    Gizmos.DrawLine(transform.position, transform.up);
         Gizmos.color = Color.gray;
         Gizmos.DrawSphere(transform.position + transform.forward * .5f, .1f);
         foreach (var nextNode in possiblePaths)
@@ -36,6 +35,11 @@ public class Walkable : MonoBehaviour
                 Gizmos.DrawLine(transform.position, nextNode.target.position);
             }
         }
+    }
+
+    private void CheckWhoIsOnNode()
+    {
+        pieceOnNode = Physics.OverlapSphere(transform.position + transform.forward * .5f, .1f);
     }
 }
 

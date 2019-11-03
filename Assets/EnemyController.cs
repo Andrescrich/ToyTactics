@@ -42,10 +42,10 @@ public class EnemyController : MonoBehaviour
     {
         if (nextCubes.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
-            objective.SetActive(false);
+            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-50);
         }
         
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         TurnOver();
     }
     

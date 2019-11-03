@@ -8,42 +8,60 @@ public class UnitStatus : MonoBehaviour
 {
     public float maxHealth, currentHealth;
     public int specialMaxCD, specialCurrentCD;
+    private bool passive = false;
+
+    public Slider healthbar, cdbar;
     // Start is called before the first frame update
     void Start()
     {
-        Slider Healthbar = gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
-        Healthbar.value = currentHealth/maxHealth;
 
-        Text CoolDown = gameObject.GetComponentInChildren(typeof(Text)) as Text;
+        healthbar.value = currentHealth/maxHealth;
+
         if(specialMaxCD == 0){
-            CoolDown.text = "P";
+            passive = true;
+        }
+
+        if(passive){
+            cdbar.gameObject.SetActive(false);
         } else {
-            CoolDown.text = ""+specialCurrentCD;
+            updateCD((float)specialCurrentCD/specialMaxCD);
         }
     }
 
 
-    void ChangeHealth(float amount)
+    public void ChangeHealth(float amount)
     {
-        currentHealth -= amount;
+        currentHealth = currentHealth + amount;
+        currentHealth = Math.Min(currentHealth, maxHealth);
+        currentHealth = Math.Max(currentHealth, 0);
         //change healthbar (Animation?)
-        Slider Healthbar = gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
-        Healthbar.value = currentHealth/maxHealth;
-        if(currentHealth <= 0){
-            //call death
+        healthbar.value = currentHealth/maxHealth;
+        if(currentHealth == 0){
+            //deathThing
         }
     }
 
-    void startTurn()
+    public void startTurn()
     {
-        specialCurrentCD-= Math.Max(specialCurrentCD-1,0);
-        Text CoolDown = gameObject.GetComponentInChildren(typeof(Text)) as Text;
-        CoolDown.text = ""+specialCurrentCD;
+        if(!passive){
+            specialCurrentCD = Math.Min(specialCurrentCD+1,specialMaxCD);
+            updateCD((float)specialCurrentCD/specialMaxCD);
+            if(specialCurrentCD == specialMaxCD){
+                //Cambiar color del slider
+            }
+        }
     }
 
-    void usedSpecial()
+    public void usedSpecial()
     {
-        Text CoolDown = gameObject.GetComponentInChildren(typeof(Text)) as Text;
-        CoolDown.text = ""+specialMaxCD;
+        updateCD(0);
+    }
+
+    private void updateCD(float valueNew)
+    {
+        if(!passive)
+        {
+            cdbar.value = valueNew;
+        }
     }
 }

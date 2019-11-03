@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
             {
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
             }
-            foreach (var cube in nextNextCubes)
+                        foreach (var cube in nextNextCubes)
             {
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
             }

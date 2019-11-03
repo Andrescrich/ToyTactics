@@ -21,9 +21,11 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.players.Add(gameObject);
             gameObject.GetComponent<PlayerController>().canBePlayed = true;
+            gameObject.GetComponent<UnitStatus>().startTurn();
         } else if (gameObject.CompareTag("Enemy") && GameManager.instance.gameState == GameStates.EnemyTurn)
         {
             GameManager.instance.players.Add(gameObject);
+            gameObject.GetComponent<UnitStatus>().startTurn();
         }
     }
 

@@ -32,4 +32,9 @@ public class Player : MonoBehaviour
         EndOfTurnEvent?.Invoke();
         GameManager.instance.players.Remove(gameObject);
     }
+
+    private void OnDestroy()
+    {
+        GameManager.turnChanging -= AddToPlayable;
+    }
 }

@@ -17,21 +17,10 @@ public class EnemyController : MonoBehaviour
     public List<PlayerController> playersToAttack;
     public GameObject objective;
     
-   /* private void Start()
-    {
-        RayCastDown();
-        FindPath();
-        SelectObjective();
-    }*/
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
 
     private void OnEnable()
     {
+        Clear();
         RayCastDown();
         FindPath();
         SelectObjective();
@@ -42,7 +31,7 @@ public class EnemyController : MonoBehaviour
     {
         if (nextCubes.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
-            objective.SetActive(false);
+            Destroy(objective);
         }
         
         yield return new WaitForSeconds(2);
@@ -91,6 +80,7 @@ public class EnemyController : MonoBehaviour
         RayCastDown();
         Clear();
         FindPath();
+        GetComponent<Player>().RemoveFromPlayable();
         moving = false;
         nTurns--;
     }
@@ -99,6 +89,7 @@ public class EnemyController : MonoBehaviour
     { 
         nextCubes.Clear();
         nextNextCubes.Clear();
+        playersToAttack.Clear();
     }
 
     private void SelectObjective()

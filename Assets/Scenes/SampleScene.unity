@@ -1399,6 +1399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCube: {fileID: 0}
+  nextCubes: []
+  nextNextCubes: []
   canBePlayed: 0
   highlighted: {fileID: 2100000, guid: e439f685e22a4dd48954e6d339851d91, type: 2}
   normal: {fileID: 2100000, guid: af745fdcfc2756740afd5750c37fea2d, type: 2}
@@ -1765,7 +1767,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7e-45, y: 0, z: 1.51e-43, w: 0.03515625}
+  m_BoundingSphereOverride: {x: 7, y: 1.5e-44, z: 0, w: 1}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3955,6 +3957,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCube: {fileID: 0}
+  nextCubes: []
+  nextNextCubes: []
   canBePlayed: 0
   highlighted: {fileID: 2100000, guid: e439f685e22a4dd48954e6d339851d91, type: 2}
   normal: {fileID: 2100000, guid: dd091fe3671f0b946bc0e6daa83fb432, type: 2}
@@ -4823,6 +4827,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCube: {fileID: 0}
+  nextCubes: []
+  nextNextCubes: []
   canBePlayed: 0
   highlighted: {fileID: 2100000, guid: e439f685e22a4dd48954e6d339851d91, type: 2}
   normal: {fileID: 2100000, guid: af745fdcfc2756740afd5750c37fea2d, type: 2}

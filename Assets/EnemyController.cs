@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
     {
         foreach (var path in currentCube.GetComponent<Walkable>().possiblePaths)
         {
-            if (path.active)
+            if (path.active && path.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
                 nextCubes.Add(path.target);
            
         }
@@ -64,14 +64,13 @@ public class EnemyController : MonoBehaviour
         {
             foreach (var path2 in p.GetComponent<Walkable>().possiblePaths)
             {
-                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target)
+                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target &&
+                    !nextNextCubes.Contains(path2.target) && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
                     nextNextCubes.Add(path2.target);
-                else  
-                    nextNextCubes.Remove(path2.target);
             }
         }
     }
-    
+
     private void ReachedClicked()
     {
         if (transform.position != objectiveCube.GetComponent<Walkable>().nodePos) return;

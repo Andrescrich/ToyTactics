@@ -32,11 +32,6 @@ public class PlayerController : MonoBehaviour
         RayCastDown();
     }
 
-    private void Start()
-    {
-        FindPath();
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && enableInput)
@@ -86,7 +81,7 @@ public class PlayerController : MonoBehaviour
             {
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
             }
-                        foreach (var cube in nextNextCubes)
+            foreach (var cube in nextNextCubes)
             {
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
             }
@@ -97,14 +92,8 @@ public class PlayerController : MonoBehaviour
     private void RayCastDown()
     {
         var playerRay = new Ray(transform.GetChild(0).position, -transform.up);
-        if (Physics.Raycast(playerRay, out var playerHit))
-        {
-            Debug.Log(playerHit.transform.name);
-            if (playerHit.transform.GetComponent<Walkable>() != null)
-            {
-                currentCube = playerHit.transform;
-            }
-        }
+        if (Physics.Raycast(playerRay, out var playerHit) && playerHit.transform.GetComponent<Walkable>() != null)
+            currentCube = playerHit.transform;
     }
 
     private void OnDrawGizmos()
@@ -124,11 +113,9 @@ public class PlayerController : MonoBehaviour
         {
             foreach (var path2 in p.GetComponent<Walkable>().possiblePaths)
             {
-                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target
-                    && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
+                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target &&
+                    !nextNextCubes.Contains(path2.target) && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
                     nextNextCubes.Add(path2.target);
-                else 
-                    nextNextCubes.Remove(path2.target);
             }
         }
     }

@@ -16,6 +16,7 @@ public class UnitStatus : MonoBehaviour
     {
 
         healthbar.value = currentHealth/maxHealth;
+        updateHealthText();
 
         if(specialMaxCD == 0){
             passive = true;
@@ -36,6 +37,7 @@ public class UnitStatus : MonoBehaviour
         currentHealth = Math.Max(currentHealth, 0);
         //change healthbar (Animation?)
         healthbar.value = currentHealth/maxHealth;
+        updateHealthText();
         if(currentHealth == 0){
             //deathThing
         }
@@ -46,9 +48,6 @@ public class UnitStatus : MonoBehaviour
         if(!passive){
             specialCurrentCD = Math.Min(specialCurrentCD+1,specialMaxCD);
             updateCD((float)specialCurrentCD/specialMaxCD);
-            if(specialCurrentCD == specialMaxCD){
-                //Cambiar color del slider
-            }
         }
     }
 
@@ -62,6 +61,22 @@ public class UnitStatus : MonoBehaviour
         if(!passive)
         {
             cdbar.value = valueNew;
+            updateCDText();
         }
+    }
+
+    private void updateCDText()
+    {
+        Text cdText = cdbar.gameObject.GetComponentInChildren<Text>();
+        if(specialMaxCD == specialCurrentCD)
+            cdText.text = "READY";
+        else
+            cdText.text = "" + specialCurrentCD;
+    }
+
+    private void updateHealthText()
+    {
+        Text hlthText = healthbar.gameObject.GetComponentInChildren<Text>();
+        hlthText.text = "" + currentHealth;
     }
 }

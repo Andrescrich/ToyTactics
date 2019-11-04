@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
                 turnChanging?.Invoke();
                 players[0].GetComponent<EnemyController>().enabled = true;
             }
-
             if (Input.GetMouseButtonDown(0))
             {
                 var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);

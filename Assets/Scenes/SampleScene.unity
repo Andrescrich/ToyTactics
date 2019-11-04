@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1786299, g: 0.22366871, b: 0.3056142, a: 1}
+  m_IndirectSpecularColor: {r: 0.1786302, g: 0.22366907, b: 0.30561504, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -279,6 +279,8 @@ MonoBehaviour:
   currentHealth: 100
   specialMaxCD: 5
   specialCurrentCD: 3
+  healthbar: {fileID: 951736709}
+  cdbar: {fileID: 944972996}
 --- !u!1 &117142380
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,6 +2061,8 @@ MonoBehaviour:
   currentHealth: 70
   specialMaxCD: 0
   specialCurrentCD: 0
+  healthbar: {fileID: 509431612}
+  cdbar: {fileID: 155402694}
 --- !u!1 &535320490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,7 +2471,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7, y: 1.5e-44, z: 0, w: 1}
+  m_BoundingSphereOverride: {x: 6e-45, y: 0, z: 1.53e-43, w: 0.05078125}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7056,6 +7060,8 @@ MonoBehaviour:
   currentHealth: 250
   specialMaxCD: 5
   specialCurrentCD: 4
+  healthbar: {fileID: 2055050003}
+  cdbar: {fileID: 1678863095}
 --- !u!1 &2122222297
 GameObject:
   m_ObjectHideFlags: 0

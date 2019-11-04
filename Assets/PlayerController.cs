@@ -29,11 +29,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         selectedTriangle = transform.GetChild(1).gameObject;
+        RayCastDown();
     }
 
     private void Start()
     {
-        RayCastDown();
         FindPath();
     }
 

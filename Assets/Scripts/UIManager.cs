@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     public Text selectedPlayerNameText;
     public Image selectedPlayerPanel;
     public Text TurnText;
-
+    public Text InfoWindowText;
 
     private void Start()
     {
@@ -58,5 +58,14 @@ public class UIManager : MonoBehaviour
     public void SelectPlayer2()
     {
         GameManager.instance.SelectPlayer(GameManager.instance.players[1].GetComponent<PlayerController>());
+    }
+
+    public void ShowInfoWindow(UnitStatus status)
+    {
+        InfoWindowText.text = status.UnitType;
+    }
+    public void stopShowInfoWindow()
+    {
+        InfoWindowText.text = "";
     }
 }

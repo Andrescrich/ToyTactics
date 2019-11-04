@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Material normal;
     public Material highlighted2;
     public GameObject selectedTriangle;
+    public Canvas UI;
     
     
     private void Awake()
@@ -179,12 +180,22 @@ public class PlayerController : MonoBehaviour
     {
         if(GameManager.instance.gameState == GameStates.PlayerTurn && canBePlayed)
           selectedTriangle.SetActive(true);
+          //Show on InfoWindow
+
+          UIManager uImanager = UI.GetComponent<UIManager>();
+          UnitStatus status = gameObject.GetComponent<UnitStatus>();
+          uImanager.ShowInfoWindow(status);
+          
+
     }
     
     private void OnMouseExit()
     {
         if(gameObject.GetComponent<PlayerController>().enabled != true)
          selectedTriangle.SetActive(false);
+         //Stop Showing on InfoWindow
+          UIManager uImanager = UI.GetComponent<UIManager>();
+          uImanager.stopShowInfoWindow();
     }
 
     private void ReachedClicked()

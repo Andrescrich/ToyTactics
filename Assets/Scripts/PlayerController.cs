@@ -26,13 +26,14 @@ public class PlayerController : MonoBehaviour
     public GameObject selectedTriangle;
     public Canvas UI;
     
-    
+    //Se llama cuando das a play
     private void Awake()
     {
         selectedTriangle = transform.GetChild(1).gameObject;
         RayCastDown();
     }
-
+    
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && enableInput)
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
             var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(mouseRay, out var mouseHit))
             {
-                if(mouseHit.transform.GetComponent<Walkable>() != null)
+                if(mouseHit.transform.GetComponent<Walkable>() != null) 
                 {
                     clickedCube = mouseHit.transform;
                     foreach (var cube in nextCubes) 

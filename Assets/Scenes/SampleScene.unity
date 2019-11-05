@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1786299, g: 0.22366871, b: 0.3056142, a: 1}
+  m_IndirectSpecularColor: {r: 0.1786302, g: 0.22366907, b: 0.30561504, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -473,8 +473,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nTurns: 1
   currentCube: {fileID: 0}
-  nextCubes: []
-  nextNextCubes: []
+  nextCubesToMove: []
+  nextNextCubesToMove: []
+  cubesOnRange1: []
+  cubesOnRange2: []
   playersToAttack: []
   objective: {fileID: 0}
 --- !u!4 &79670845
@@ -2426,7 +2428,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5860348, y: 1, z: 0.37838918}
+  m_Size: {x: 1.0894934, y: 1, z: 1.0853629}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &527954614
 MonoBehaviour:
@@ -3507,7 +3509,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6e-45, y: 0, z: 1.53e-43, w: 0.05078125}
+  m_BoundingSphereOverride: {x: 0.03515625, y: -0.0390625, z: -1, w: 8}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

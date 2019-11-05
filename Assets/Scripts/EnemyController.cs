@@ -8,8 +8,12 @@ public class EnemyController : MonoBehaviour
 {
     public int nTurns;
     public Transform currentCube;
-    public List<Transform> nextCubes = new List<Transform>();
-    public List<Transform> nextNextCubes = new List<Transform>();
+    //Estas listas son los posibles nodos en los que se puede mover (se quitan los que tienen otra pieza en ellos)
+    public List<Transform> nextCubesToMove = new List<Transform>();
+    public List<Transform> nextNextCubesToMove = new List<Transform>();
+    //Estas listas son el recuento de todos los nodos (se usa para comprobar que otros enemigos estan en x rango)
+    public List<Transform> cubesOnRange1 = new List<Transform>();
+    public List<Transform> cubesOnRange2 = new List<Transform>();
     private bool moving;
     private Transform objectiveCube;
     private bool possiblePath;
@@ -29,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Action()
     {
-        if (nextCubes.Contains(objective.GetComponent<PlayerController>().currentCube))
+        if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-50);
         }
@@ -56,17 +60,26 @@ public class EnemyController : MonoBehaviour
     {
         foreach (var path in currentCube.GetComponent<Walkable>().possiblePaths)
         {
-            if (path.active && path.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
-                nextCubes.Add(path.target);
-           
+            if (path.active)
+            {
+                cubesOnRange1.Add(path.target);
+                if (path.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
+                    nextCubesToMove.Add(path.target);
+            }
+
         }
-        foreach (var p in nextCubes)
+        foreach (var p in nextCubesToMove)
         {
             foreach (var path2 in p.GetComponent<Walkable>().possiblePaths)
             {
-                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target &&
-                    !nextNextCubes.Contains(path2.target) && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
-                    nextNextCubes.Add(path2.target);
+                if (!nextCubesToMove.Contains(path2.target) && path2.active && currentCube != path2.target &&
+                    !cubesOnRange2.Contains(path2.target))
+                {
+                    cubesOnRange2.Add(path2.target);
+                    if (path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0 && !nextNextCubesToMove.Contains(path2.target)) 
+                        nextNextCubesToMove.Add(path2.target);
+                }
+
             }
         }
     }
@@ -86,8 +99,10 @@ public class EnemyController : MonoBehaviour
     
     private void Clear()
     { 
-        nextCubes.Clear();
-        nextNextCubes.Clear();
+        cubesOnRange1.Clear();
+        cubesOnRange2.Clear();
+        nextCubesToMove.Clear();
+        nextNextCubesToMove.Clear();
         playersToAttack.Clear();
     }
 

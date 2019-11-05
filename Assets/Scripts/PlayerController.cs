@@ -216,9 +216,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         Clear();
-        FindPath();
         selectedTriangle.SetActive(true);
         GameManager.instance.whoIsPlaying = gameObject;
+        ActionButton actionButton = UI.GetComponent<ActionButton>();
+        actionButton.player = gameObject;
+    }
+
+    public void moveAction(){
+        FindPath();
     }
 
     private void OnDisable()

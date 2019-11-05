@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class EnemyController : MonoBehaviour
 {
-    public int nTurns;
     public Transform currentCube;
     //Estas listas son los posibles nodos en los que se puede mover (se quitan los que tienen otra pieza en ellos)
     public List<Transform> nextCubesToMove = new List<Transform>();
@@ -15,7 +16,7 @@ public class EnemyController : MonoBehaviour
     public List<Transform> cubesOnRange1 = new List<Transform>();
     public List<Transform> cubesOnRange2 = new List<Transform>();
     private bool moving;
-    private Transform objectiveCube;
+    public Transform objectiveCube;
     private bool possiblePath;
     private bool enableInput;
     public List<PlayerController> playersToAttack;
@@ -36,8 +37,49 @@ public class EnemyController : MonoBehaviour
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-50);
+            yield return new WaitForSeconds(1);
+            TurnOver();
+            yield break;
+        }
+
+        Transform objectiveCube1 = nextCubesToMove.First();
+        objectiveCube = nextCubesToMove.First();
+        foreach (var nextCube in nextCubesToMove)
+        {
+            if (Vector3.Distance(objective.GetComponent<PlayerController>().currentCube.transform.position, objectiveCube.position) >
+                Vector3.Distance(objective.GetComponent<PlayerController>().currentCube.transform.position, nextCube.position))
+            {
+                objectiveCube = nextCube;
+                objectiveCube1 = nextCube;
+            }
+        }
+        foreach (var nextCube in nextNextCubesToMove)
+        {
+            if (Vector3.Distance(objective.GetComponent<PlayerController>().currentCube.transform.position, objectiveCube.position) >
+                Vector3.Distance(objective.GetComponent<PlayerController>().currentCube.transform.position, nextCube.position))
+            {
+                objectiveCube = nextCube;
+            }
         }
         
+        var lookPos = new Vector3(objectiveCube1.position.x, transform.position.y, objectiveCube1.position.z);
+        transform.LookAt(lookPos);
+
+        while (transform.position != objectiveCube1.GetComponent<Walkable>().nodePos)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, objectiveCube1.GetComponent<Walkable>().nodePos,
+                5f * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+        var lookPos2 = new Vector3(objectiveCube.position.x, transform.position.y, objectiveCube.position.z);
+        transform.LookAt(lookPos2);
+        while (transform.position != objectiveCube.GetComponent<Walkable>().nodePos)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, objectiveCube.GetComponent<Walkable>().nodePos,
+                5f * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
         yield return new WaitForSeconds(1);
         TurnOver();
     }
@@ -84,19 +126,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void ReachedClicked()
-    {
-        if (transform.position != objectiveCube.GetComponent<Walkable>().nodePos) return;
-        possiblePath = false;
-        enableInput = true;
-        RayCastDown();
-        Clear();
-        FindPath();
-        GetComponent<Player>().RemoveFromPlayable();
-        moving = false;
-        nTurns--;
-    }
-    
     private void Clear()
     { 
         cubesOnRange1.Clear();
@@ -126,4 +155,5 @@ public class EnemyController : MonoBehaviour
         GetComponent<Player>().RemoveFromPlayable();
         enabled = false;
     }
+
 }

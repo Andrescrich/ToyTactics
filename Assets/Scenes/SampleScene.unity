@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1786296, g: 0.2236686, b: 0.30561426, a: 1}
+  m_IndirectSpecularColor: {r: 0.1786299, g: 0.22366871, b: 0.3056142, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -514,6 +514,7 @@ MonoBehaviour:
   specialCurrentCD: 3
   healthbar: {fileID: 1566407812}
   cdbar: {fileID: 1717040320}
+  UI: {fileID: 1882554206}
 --- !u!1 &104792051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2498,7 @@ MonoBehaviour:
   specialCurrentCD: 0
   healthbar: {fileID: 912829655}
   cdbar: {fileID: 389326103}
+  UI: {fileID: 1882554206}
 --- !u!1 &535320490
 GameObject:
   m_ObjectHideFlags: 0
@@ -9188,6 +9190,7 @@ MonoBehaviour:
   specialCurrentCD: -1
   healthbar: {fileID: 2032887801}
   cdbar: {fileID: 695085312}
+  UI: {fileID: 1882554206}
 --- !u!1 &2105959772
 GameObject:
   m_ObjectHideFlags: 0

@@ -182,9 +182,9 @@ public class PlayerController : MonoBehaviour
           selectedTriangle.SetActive(true);
           //Show on InfoWindow
 
-          UIManager uImanager = UI.GetComponent<UIManager>();
-          UnitStatus status = gameObject.GetComponent<UnitStatus>();
-          uImanager.ShowInfoWindow(status);
+          //UIManager uImanager = UI.GetComponent<UIManager>();
+          //UnitStatus status = gameObject.GetComponent<UnitStatus>();
+          //uImanager.ShowInfoWindow(status);
           
 
     }
@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
         if(gameObject.GetComponent<PlayerController>().enabled != true)
          selectedTriangle.SetActive(false);
          //Stop Showing on InfoWindow
-          UIManager uImanager = UI.GetComponent<UIManager>();
-          uImanager.stopShowInfoWindow();
+          //UIManager uImanager = UI.GetComponent<UIManager>();
+          //uImanager.stopShowInfoWindow();
     }
 
     private void ReachedClicked()

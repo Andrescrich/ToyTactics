@@ -11,6 +11,8 @@ public class UnitStatus : MonoBehaviour
     public int currentHealth,specialCurrentCD;
     private bool passive = false;
     public Slider healthbar, cdbar;
+
+    public Canvas UI;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,5 +80,20 @@ public class UnitStatus : MonoBehaviour
     {
         Text hlthText = healthbar.gameObject.GetComponentInChildren<Text>();
         hlthText.text = "" + currentHealth;
+    }
+
+    private void OnMouseEnter()
+    {
+        if(GameManager.instance.gameState == GameStates.PlayerTurn){
+          UIManager uImanager = UI.GetComponent<UIManager>();
+          UnitStatus status = gameObject.GetComponent<UnitStatus>();
+          uImanager.ShowInfoWindow(status);
+        }
+    }
+    
+    private void OnMouseExit()
+    {
+        UIManager uImanager = UI.GetComponent<UIManager>();
+        uImanager.stopShowInfoWindow();
     }
 }

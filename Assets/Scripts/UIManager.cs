@@ -17,7 +17,10 @@ public class UIManager : MonoBehaviour
     public Text selectedPlayerNameText;
     public Image selectedPlayerPanel;
     public Text TurnText;
-    public Text InfoWindowText;
+    public Text NombreUnidadInfo;
+    public Text ataqueUnidadInfo;
+    public Text rangoMovUnidadInfo;
+    public Text SpecialInfo;
 
     private void Start()
     {
@@ -62,10 +65,17 @@ public class UIManager : MonoBehaviour
 
     public void ShowInfoWindow(UnitStatus status)
     {
-        InfoWindowText.text = status.UnitType;
+        NombreUnidadInfo.text = status.UnitType + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
+        ataqueUnidadInfo.text = "Damage: "+status.damage;
+        rangoMovUnidadInfo.text = "Movment Range: " + status.movementRange;
+        SpecialInfo.text = "Special: " + status.specialCurrentCD + "/" + status.specialMaxCD + " CD";
+
     }
     public void stopShowInfoWindow()
     {
-        InfoWindowText.text = "";
+        NombreUnidadInfo.text = "";
+        ataqueUnidadInfo.text = "";
+        rangoMovUnidadInfo.text = "";
+        SpecialInfo.text = "";
     }
 }

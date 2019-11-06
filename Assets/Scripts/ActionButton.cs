@@ -10,21 +10,30 @@ public class ActionButton : MonoBehaviour
     public GameObject player;
 
     public Button moveButton;
+    public Button attackButton;
 
+    private void Update()
+    {
+        if (player == null) return;
+        if (player.GetComponent<PlayerController>().hasMoved)
+            moveButton.interactable = false;
+    }
 
     public void MoveButton()
     {
         if (player == null) return;
-        if (player.GetComponent<PlayerController>().hasMoved) return;
+        attackButton.interactable = true;
         player.GetComponent<PlayerController>().MoveAction();
         moveButton.interactable = false;
 
     }
 
-    public void AttackButton(){
+    public void AttackButton()
+    {
         if (player == null) return;
+        moveButton.interactable = true;
         player.GetComponent<PlayerController>().AttackAction();
-        player = null;
+        attackButton.interactable = false;
     }
 
     public void specialButton(){

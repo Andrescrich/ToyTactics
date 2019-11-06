@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void TurnChange(); 
     public static event TurnChange turnChanging;
+    
 
     private void Awake()
     {
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
                 gameState = GameStates.PlayerTurn;
                 turnChanging?.Invoke();
             }
-            
         }
     }
 
@@ -63,6 +63,12 @@ public class GameManager : MonoBehaviour
     {
         player.enabled = true;
         enabled = false;
+    }
+
+    public void NextEnemyTurn()
+    {
+        if(players.Count > 0)
+          players[0].GetComponent<EnemyController>().enabled = true;
     }
 }
 

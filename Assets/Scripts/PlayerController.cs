@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool possiblePath;
     public bool hasMoved;
     private bool enableInput = true;
-    private bool moving = false;
+    private bool moving;
     public bool canBePlayed;
     
     public Material highlighted;
@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
         state = State.None;
         RayCastDown();
     }
-    
     
     private void Update()
     {
@@ -63,10 +62,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (state == State.SelectAttack && mouseHit.transform.GetComponent<EnemyController>() != null)
+            if (state == State.SelectAttack && mouseHit.transform.GetComponent<EnemyController>() != null &&
+                attackCubes.Contains(mouseHit.transform.GetComponent<EnemyController>().currentCube))
             {
                 clickedEnemy = mouseHit.transform;
-                Attack();
+                Attack(clickedEnemy);
             }
         }
     }
@@ -183,6 +183,7 @@ public class PlayerController : MonoBehaviour
     { 
         nextCubes.Clear();
         nextNextCubes.Clear();
+        attackCubes.Clear();
     }
     private void OnMouseEnter()
     {
@@ -242,9 +243,11 @@ public class PlayerController : MonoBehaviour
         selectedTriangle.SetActive(true);
         GameManager.instance.whoIsPlaying = gameObject;
         UI.GetComponent<ActionButton>().player = gameObject;
+        UI.GetComponent<UIManager>().ShowInfoWindow(gameObject.GetComponent<UnitStatus>());
     }
 
     private void EndAction(){
+        ChangeState();
         possiblePath = false;
         enableInput = true;
         RayCastDown();
@@ -256,12 +259,16 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.enabled = true;
         enabled = false;
         hasMoved = false;
+        UI.GetComponent<ActionButton>().player = null;
         state = State.None;
     }
 
     public void MoveAction(){
-        FindPath();
-        if (!possiblePath)
+        if(nextCubes.Count == 0) 
+            FindPath();
+        ChangeState();
+        state = State.SelectMove;
+        if (!possiblePath && state == State.SelectMove)
         {
             foreach (var cube in nextCubes)
             {
@@ -273,29 +280,47 @@ public class PlayerController : MonoBehaviour
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
             }
         }
-        state = State.SelectMove;
-        
+
     }
 
     public void WaitAction(){
+        ChangeState();
         EndAction();
     }
 
     public void AttackAction(){
+        state = State.SelectAttack;
+        ChangeState();
         FindAttack();
         foreach (var cube in attackCubes)
         {
             if(cube.GetComponent<Walkable>().pieceOnNode.Length > 0)
                 cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
         }
-        state = State.SelectAttack;
     }
 
     private void OnDisable()
     {
         selectedTriangle.SetActive(false);
+        UI.GetComponent<UIManager>().stopShowInfoWindow();
         GameManager.instance.whoIsPlaying = null;
         UI.GetComponent<ActionButton>().moveButton.interactable = true;
+        UI.GetComponent<ActionButton>().attackButton.interactable = true;
+        ChangeState();
+    }
+
+    private void Attack(Transform objective){
+        objective.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
+        objective.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = normal;
+        EndAction();
+    }
+
+    private void ChangeState()
+    {
+        foreach (var cube in attackCubes)
+        {
+            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
+        }
         foreach (var cube in nextCubes)
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
@@ -305,11 +330,5 @@ public class PlayerController : MonoBehaviour
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
         }
-    }
-
-    private void Attack(){
-        clickedEnemy.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
-        clickedEnemy.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        EndAction();
     }
 }

@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowInfoWindow(UnitStatus status)
     {
-        NombreUnidadInfo.text = status.UnitType + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
+        NombreUnidadInfo.text = status.gameObject.name + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
         ataqueUnidadInfo.text = "Damage: "+status.damage;
         rangoMovUnidadInfo.text = "Movment Range: " + status.movementRange;
         SpecialInfo.text = "Special: " + status.specialCurrentCD + "/" + status.specialMaxCD + " CD";

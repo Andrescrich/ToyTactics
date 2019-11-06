@@ -41,13 +41,13 @@ public class EnemyController : MonoBehaviour
     {
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
-            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-50);
+            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
             yield return new WaitForSeconds(1);
             TurnOver();
             yield break;
         }
 
-        Transform objectiveCube1 = nextCubesToMove.First();
+        var objectiveCube1 = nextCubesToMove.First();
         objectiveCube = nextCubesToMove.First();
         foreach (var nextCube in nextCubesToMove)
         {
@@ -86,6 +86,7 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         yield return new WaitForSeconds(1);
+        RayCastDown();
         TurnOver();
     }
     
@@ -158,6 +159,7 @@ public class EnemyController : MonoBehaviour
     private void TurnOver()
     {
         GetComponent<Player>().RemoveFromPlayable();
+        GameManager.instance.NextEnemyTurn();
         enabled = false;
     }
 

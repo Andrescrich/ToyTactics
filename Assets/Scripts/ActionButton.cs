@@ -17,6 +17,9 @@ public class ActionButton : MonoBehaviour
     public Button waitButton;
 
 
+    private void Start() {
+        deactivateAll();
+    }
     private void Update()
     {
         if (player == null){

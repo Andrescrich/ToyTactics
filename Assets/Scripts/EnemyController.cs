@@ -104,7 +104,7 @@ public class EnemyController : MonoBehaviour
     
     private void RayCastDown()
     {
-        var playerRay = new Ray(transform.GetChild(0).position, -transform.up);
+        var playerRay = new Ray(transform.position, -transform.up);
         if (Physics.Raycast(playerRay, out var playerHit))
         {
             if (playerHit.transform.GetComponent<Walkable>() != null)
@@ -172,5 +172,4 @@ public class EnemyController : MonoBehaviour
         GameManager.instance.NextEnemyTurn();
         enabled = false;
     }
-
 }

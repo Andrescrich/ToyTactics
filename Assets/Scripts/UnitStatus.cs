@@ -31,13 +31,7 @@ public class UnitStatus : MonoBehaviour
             updateCD((float)specialCurrentCD/specialMaxCD);
         }
     }
-
-    private void Update()
-    {
-        if(currentHealth <= 0) 
-            Death();
-    }
-
+    
 
     public void ChangeHealth(int amount)
     {
@@ -48,7 +42,7 @@ public class UnitStatus : MonoBehaviour
         healthbar.value = (float)currentHealth/maxHealth;
         updateHealthText();
         if(currentHealth == 0){
-            //deathThing
+            Death();
         }
     }
 

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameObject whoIsPlaying;
     public List<GameObject> players;
+    public List<GameObject> aliados;
+    public List<GameObject> enemigos;
     public GameStates gameState = GameStates.PlayerTurn;
     public Material playableMaterial;
     public Material normalMaterial;

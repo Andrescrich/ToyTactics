@@ -27,6 +27,12 @@ public class Player : MonoBehaviour
             GameManager.instance.players.Add(gameObject);
             gameObject.GetComponent<UnitStatus>().startTurn();
         }
+
+        if (gameObject.CompareTag("Player") && !GameManager.instance.aliados.Contains(gameObject)) {
+            GameManager.instance.aliados.Add(gameObject);
+        }
+        else if (gameObject.CompareTag("Enemy") && !GameManager.instance.enemigos.Contains(gameObject)) {
+            GameManager.instance.enemigos.Add(gameObject); }
     }
 
     public void RemoveFromPlayable()
@@ -38,5 +44,7 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.turnChanging -= AddToPlayable;
+        if (GameManager.instance.aliados.Contains(gameObject)) { GameManager.instance.aliados.Remove(gameObject); }
+        else if (GameManager.instance.enemigos.Contains(gameObject)) { GameManager.instance.enemigos.Remove(gameObject); }
     }
 }

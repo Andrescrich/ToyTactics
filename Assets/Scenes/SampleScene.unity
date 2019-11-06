@@ -1019,11 +1019,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Cube2
-  damage: 30
-  movementRange: 0
-  maxHealth: 300
+  damage: 75
+  movementRange: 2
+  maxHealth: 200
   specialMaxCD: 5
-  currentHealth: 300
+  currentHealth: 200
   specialCurrentCD: 3
   healthbar: {fileID: 1566407812}
   cdbar: {fileID: 1717040320}
@@ -3907,11 +3907,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Cube
-  damage: 50
+  damage: 100
   movementRange: 2
-  maxHealth: 100
+  maxHealth: 200
   specialMaxCD: 0
-  currentHealth: 100
+  currentHealth: 200
   specialCurrentCD: 0
   healthbar: {fileID: 912829655}
   cdbar: {fileID: 389326103}
@@ -7461,8 +7461,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Cube2
-  damage: 30
-  movementRange: 0
+  damage: 40
+  movementRange: 2
   maxHealth: 300
   specialMaxCD: 5
   currentHealth: 300
@@ -13054,7 +13054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Robot
-  damage: 100
+  damage: 75
   movementRange: 2
   maxHealth: 250
   specialMaxCD: 5

@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var player in players)
         {
-            Debug.Log(player);
+            //Debug.Log(player);
             if(player.GetComponent<PlayerController>() != null)
                 player.GetComponent<PlayerController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = playableMaterial;
             if(player.GetComponent<EnemyController>() != null)

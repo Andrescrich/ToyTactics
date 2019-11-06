@@ -97,4 +97,14 @@ public class UnitStatus : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public bool IsPassive()
+    {
+        return passive;
+    }
+
+    public bool SpecialReady()
+    {
+        return specialMaxCD == specialCurrentCD;
+    }
 }

@@ -457,7 +457,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5860348, y: 1, z: 0.37838918}
+  m_Size: {x: 1.0261188, y: 1, z: 1.0151507}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &79670844
 MonoBehaviour:
@@ -471,12 +471,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6428f3d22662b4eb84d38552254a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nTurns: 1
   currentCube: {fileID: 0}
   nextCubesToMove: []
   nextNextCubesToMove: []
   cubesOnRange1: []
   cubesOnRange2: []
+  objectiveCube: {fileID: 0}
   playersToAttack: []
   objective: {fileID: 0}
 --- !u!4 &79670845
@@ -2454,6 +2454,7 @@ MonoBehaviour:
   highlighted2: {fileID: 2100000, guid: c8e60a1eaf8503542b5bff2cd140c3a9, type: 2}
   selectedTriangle: {fileID: 0}
   UI: {fileID: 1882554206}
+  clickedEnemy: {fileID: 0}
 --- !u!4 &527954615
 Transform:
   m_ObjectHideFlags: 0
@@ -2760,7 +2761,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1882554210}
-        m_MethodName: attackButton
+        m_MethodName: AttackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5573,7 +5574,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1882554210}
-        m_MethodName: waitButton
+        m_MethodName: WaitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7073,7 +7074,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15366
+  m_Name: pb_Mesh15722
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7462,6 +7463,7 @@ MonoBehaviour:
   highlighted2: {fileID: 2100000, guid: c8e60a1eaf8503542b5bff2cd140c3a9, type: 2}
   selectedTriangle: {fileID: 0}
   UI: {fileID: 0}
+  clickedEnemy: {fileID: 0}
 --- !u!4 &1584893094
 Transform:
   m_ObjectHideFlags: 0
@@ -7645,7 +7647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667457253}
   m_LocalRotation: {x: -0, y: 1.5184942e-10, z: 1, w: 2.1102547e-10}
-  m_LocalPosition: {x: 0.072, y: 2.634, z: -0.044}
+  m_LocalPosition: {x: 0.07, y: 2.634, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.24999997}
   m_Children:
   - {fileID: 1005126717}
@@ -8510,6 +8512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  moveButton: {fileID: 2133782334}
 --- !u!1 &1896053111
 GameObject:
   m_ObjectHideFlags: 0
@@ -9175,6 +9178,7 @@ MonoBehaviour:
   highlighted2: {fileID: 2100000, guid: c8e60a1eaf8503542b5bff2cd140c3a9, type: 2}
   selectedTriangle: {fileID: 0}
   UI: {fileID: 1882554206}
+  clickedEnemy: {fileID: 0}
 --- !u!4 &2069818368
 Transform:
   m_ObjectHideFlags: 0
@@ -9559,7 +9563,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1882554210}
-        m_MethodName: moveButton
+        m_MethodName: MoveButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

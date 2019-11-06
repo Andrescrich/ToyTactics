@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
     public Material highlighted2;
     public GameObject selectedTriangle;
     public Canvas UI;
-    
-    //Se llama cuando das a play
+    public Transform clickedEnemy;
+
     private void Awake()
     {
         selectedTriangle = transform.GetChild(1).gameObject;
@@ -44,86 +44,39 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && enableInput)
         {
             var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(mouseRay, out var mouseHit))
+            if (Physics.Raycast(mouseRay, out var mouseHit))
             {
-                if(mouseHit.transform.GetComponent<Walkable>() != null) 
+                if (mouseHit.transform.GetComponent<Walkable>() != null && state == State.SelectMove)
                 {
-                    if(state == State.SelectMove){
-                        clickedCube = mouseHit.transform;
-                        foreach (var cube in nextCubes) 
-                        { 
-                            if (clickedCube == cube) 
-                                possiblePath = true;
-                        }
+                    clickedCube = mouseHit.transform;
+                    foreach (var cube in nextCubes)
+                    {
+                        if (clickedCube == cube)
+                            possiblePath = true;
+                    }
 
-                        foreach (var cube in nextNextCubes)
-                        {
-                            if (clickedCube == cube) 
-                                possiblePath = true;
-                        }
-                    } else if(state == State.SelectAttack){
-                        clickedCube = mouseHit.transform;
-                        foreach (var cube in attackCubes) 
-                        { 
-                            if (clickedCube == cube) 
-                                possiblePath = true;
-                        }
+                    foreach (var cube in nextNextCubes)
+                    {
+                        if (clickedCube == cube)
+                            possiblePath = true;
                     }
                 }
+            }
+
+            if (state == State.SelectAttack && mouseHit.transform.GetComponent<EnemyController>() != null)
+            {
+                clickedEnemy = mouseHit.transform;
+                Attack();
             }
         }
     }
 
     private void FixedUpdate()
     {
-        if(state == State.SelectMove){
-            if (possiblePath)
-            {
-                enableInput = false;
-                foreach (var cube in nextCubes)
-                {
-                    cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-                }
-
-                foreach (var cube in nextNextCubes)
-                {
-                    cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-                }
-                if(!moving)
-                MoveToClicked();
-            }
-            else
-            {
-                foreach (var cube in nextCubes)
-                {
-                    cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
-                }
-                foreach (var cube in nextNextCubes)
-                {
-                    cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
-                }
-            }
-        } else if(state == State.SelectAttack){
-            if (possiblePath)
-            {
-                enableInput = false;
-                foreach (var cube in attackCubes)
-                {
-                    cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-                }
-                //Attack command
-                attack();
-            }
-            else
-            {
-                foreach (var cube in attackCubes)
-                {
-                    if(cube.GetComponent<Walkable>().pieceOnNode.Length>0){
-                        cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
-                    }
-                }
-            }
-        }
+        if (state != State.SelectMove || !possiblePath) return;
+        enableInput = false;
+        if (!moving)
+            MoveToClicked();
     }
 
 
@@ -170,6 +123,15 @@ public class PlayerController : MonoBehaviour
     private void MoveToClicked()
     {
         if (clickedCube == null) return;
+        foreach (var cube in nextCubes)
+        {
+            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
+        }
+
+        foreach (var cube in nextNextCubes)
+        {
+            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
+        }
         var lookPos = new Vector3(clickedCube.position.x, transform.position.y, clickedCube.position.z);
         transform.LookAt(lookPos);
         if (nextCubes.Contains(clickedCube))
@@ -279,11 +241,10 @@ public class PlayerController : MonoBehaviour
         state = State.Menu;
         selectedTriangle.SetActive(true);
         GameManager.instance.whoIsPlaying = gameObject;
-        ActionButton actionButton = UI.GetComponent<ActionButton>();
-        actionButton.player = gameObject;
+        UI.GetComponent<ActionButton>().player = gameObject;
     }
 
-    private void endAction(){
+    private void EndAction(){
         possiblePath = false;
         enableInput = true;
         RayCastDown();
@@ -298,25 +259,43 @@ public class PlayerController : MonoBehaviour
         state = State.None;
     }
 
-    public void moveAction(){
-        state = State.SelectMove;
+    public void MoveAction(){
         FindPath();
+        if (!possiblePath)
+        {
+            foreach (var cube in nextCubes)
+            {
+                cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
+            }
+
+            foreach (var cube in nextNextCubes)
+            {
+                cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
+            }
+        }
+        state = State.SelectMove;
+        
     }
 
-    public void waitAction(){
-        endAction();
+    public void WaitAction(){
+        EndAction();
     }
 
-    public void attackAction(){
+    public void AttackAction(){
         FindAttack();
+        foreach (var cube in attackCubes)
+        {
+            if(cube.GetComponent<Walkable>().pieceOnNode.Length > 0)
+                cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
+        }
         state = State.SelectAttack;
-
     }
 
     private void OnDisable()
     {
         selectedTriangle.SetActive(false);
         GameManager.instance.whoIsPlaying = null;
+        UI.GetComponent<ActionButton>().moveButton.interactable = true;
         foreach (var cube in nextCubes)
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
@@ -328,11 +307,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void attack(){
-        GameObject unit = clickedCube.GetComponent<Walkable>().pieceOnNode.First().gameObject;
-        UnitStatus statusObjective = unit.GetComponent<UnitStatus>();
-        UnitStatus statusSelf = gameObject.GetComponent<UnitStatus>();
-        statusObjective.ChangeHealth(-1*statusSelf.damage);
-        endAction();
+    private void Attack(){
+        clickedEnemy.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
+        clickedEnemy.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = normal;
+        EndAction();
     }
 }

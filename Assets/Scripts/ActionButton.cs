@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,27 +8,23 @@ public class ActionButton : MonoBehaviour
 {
 
     public GameObject player;
-    // Start is called before the first frame update
 
-    private void Update() {
-        if(player != null && player.GetComponent<PlayerController>().hasMoved)
-        {
-            GameObject myButton = GameObject.Find("MoveButton");
-            myButton.GetComponent<Button>().interactable = false;
-        } else {
-            GameObject myButton = GameObject.Find("MoveButton");
-            myButton.GetComponent<Button>().interactable = true;
-        }
-    }
-    public void moveButton(){
-        
-        PlayerController pc = player.GetComponent<PlayerController>();
-        pc.moveAction();
+    public Button moveButton;
+
+
+    public void MoveButton()
+    {
+        if (player == null) return;
+        if (player.GetComponent<PlayerController>().hasMoved) return;
+        player.GetComponent<PlayerController>().MoveAction();
+        moveButton.interactable = false;
+
     }
 
-    public void attackButton(){
-        PlayerController pc = player.GetComponent<PlayerController>();
-        pc.attackAction();
+    public void AttackButton(){
+        if (player == null) return;
+        player.GetComponent<PlayerController>().AttackAction();
+        player = null;
     }
 
     public void specialButton(){
@@ -35,8 +32,10 @@ public class ActionButton : MonoBehaviour
         //pc.specialAction();
     }
 
-    public void waitButton(){
-        PlayerController pc = player.GetComponent<PlayerController>();
-        pc.waitAction();
+    public void WaitButton()
+    {
+        if (player == null) return;
+        player.GetComponent<PlayerController>().WaitAction();
+        player = null;
     }
 }

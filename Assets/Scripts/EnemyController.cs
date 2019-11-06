@@ -21,7 +21,12 @@ public class EnemyController : MonoBehaviour
     private bool enableInput;
     public List<PlayerController> playersToAttack;
     public GameObject objective;
-    
+
+
+    private void Awake()
+    {
+        RayCastDown();
+    }
 
     private void OnEnable()
     {

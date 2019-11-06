@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
                 attackCubes.Contains(mouseHit.transform.GetComponent<EnemyController>().currentCube))
             {
                 clickedEnemy = mouseHit.transform;
+                var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
+                transform.LookAt(lookPos);
                 Attack(clickedEnemy);
             }
         }

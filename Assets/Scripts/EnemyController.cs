@@ -44,6 +44,7 @@ public class EnemyController : MonoBehaviour
         currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
+            transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
             objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
             yield return new WaitForSeconds(1);
             TurnOver();
@@ -94,6 +95,7 @@ public class EnemyController : MonoBehaviour
         SelectObjective();
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
+            transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
             objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
         }
         yield return new WaitForSeconds(1);

@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     private bool enableInput;
     public List<PlayerController> playersToAttack;
     public GameObject objective;
+    public Material normalMaterial;
 
 
     private void Awake()
@@ -39,6 +40,8 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Action()
     {
+        yield return new WaitForSeconds(1);
+        currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
@@ -85,8 +88,15 @@ public class EnemyController : MonoBehaviour
                 5f * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
-        yield return new WaitForSeconds(1);
+        Clear();
         RayCastDown();
+        FindPath();
+        SelectObjective();
+        if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
+        {
+            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
+        }
+        yield return new WaitForSeconds(1);
         TurnOver();
     }
     

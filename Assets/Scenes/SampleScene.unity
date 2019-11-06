@@ -824,6 +824,7 @@ MonoBehaviour:
   objectiveCube: {fileID: 0}
   playersToAttack: []
   objective: {fileID: 0}
+  normalMaterial: {fileID: 2100000, guid: af745fdcfc2756740afd5750c37fea2d, type: 2}
 --- !u!4 &79670845
 Transform:
   m_ObjectHideFlags: 0
@@ -5004,7 +5005,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.9057e-41, y: 3.8205e-41, z: 5.38e-43, w: 1.1121e-41}
+  m_BoundingSphereOverride: {x: 1.29e-43, y: 1e-45, z: 1.6114932e-38, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -5705,6 +5706,8 @@ MonoBehaviour:
   whoIsPlaying: {fileID: 0}
   players: []
   gameState: 0
+  playableMaterial: {fileID: 2100000, guid: 41a4f5d761340db4d87756cd0db87678, type: 2}
+  normalMaterial: {fileID: 2100000, guid: af745fdcfc2756740afd5750c37fea2d, type: 2}
 --- !u!4 &858864387
 Transform:
   m_ObjectHideFlags: 0
@@ -6572,7 +6575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.09941058, y: 0.84839374, z: -0.18589105, w: 0.48558226}
-  m_LocalPosition: {x: -8.34, y: 4.99, z: -3.05}
+  m_LocalPosition: {x: -8.34, y: 4.66, z: -3.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7257,6 +7260,7 @@ MonoBehaviour:
   objectiveCube: {fileID: 0}
   playersToAttack: []
   objective: {fileID: 0}
+  normalMaterial: {fileID: 2100000, guid: af745fdcfc2756740afd5750c37fea2d, type: 2}
 --- !u!114 &1052840373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9056,8 +9060,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351051282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.964, y: 1.34, z: -8.422}
-  m_LocalScale: {x: 2.238607, y: 1, z: 2.1153774}
+  m_LocalPosition: {x: -1.964, y: 1.34, z: -7.715}
+  m_LocalScale: {x: 2.238607, y: 1, z: 2.2571077}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10

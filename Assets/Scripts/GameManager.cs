@@ -10,19 +10,23 @@ public class GameManager : MonoBehaviour
     public GameObject whoIsPlaying;
     public List<GameObject> players;
     public GameStates gameState = GameStates.PlayerTurn;
+    public Material playableMaterial;
+    public Material normalMaterial;
 
     public delegate void TurnChange(); 
     public static event TurnChange turnChanging;
-    
+
 
     private void Awake()
     {
         instance = this;
+     //   turnChanging += HighlightPlayables;
     }
 
     private void Start()
     {
         turnChanging();
+        HighlightPlayables();
     }
     
 
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour
             {
                 gameState = GameStates.EnemyTurn;
                 turnChanging?.Invoke();
+                HighlightPlayables();
                 players[0].GetComponent<EnemyController>().enabled = true;
             }
             if (Input.GetMouseButtonDown(0))
@@ -55,6 +60,7 @@ public class GameManager : MonoBehaviour
             {
                 gameState = GameStates.PlayerTurn;
                 turnChanging?.Invoke();
+                HighlightPlayables();
             }
         }
     }
@@ -63,12 +69,25 @@ public class GameManager : MonoBehaviour
     {
         player.enabled = true;
         enabled = false;
+            player.currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
     }
 
     public void NextEnemyTurn()
     {
         if(players.Count > 0)
           players[0].GetComponent<EnemyController>().enabled = true;
+    }
+
+    private void HighlightPlayables()
+    {
+        foreach (var player in players)
+        {
+            Debug.Log(player);
+            if(player.GetComponent<PlayerController>() != null)
+                player.GetComponent<PlayerController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = playableMaterial;
+            if(player.GetComponent<EnemyController>() != null)
+                player.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = playableMaterial;
+        }
     }
 }
 

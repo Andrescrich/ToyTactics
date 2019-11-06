@@ -12,7 +12,7 @@ public class QuickInfoUI : MonoBehaviour
     public Text rangoMovUnidadInfo;
     public Text SpecialInfo;
 
-    private void Start()
+    private void Update()
     {
         ShowInfoWindow(transform.root.gameObject.GetComponent<UnitStatus>());
     }

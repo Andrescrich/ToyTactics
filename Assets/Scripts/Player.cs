@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
+        RemoveFromPlayable();
         GameManager.turnChanging -= AddToPlayable;
         if (GameManager.instance.aliados.Contains(gameObject)) { GameManager.instance.aliados.Remove(gameObject); }
         else if (GameManager.instance.enemigos.Contains(gameObject)) { GameManager.instance.enemigos.Remove(gameObject); }

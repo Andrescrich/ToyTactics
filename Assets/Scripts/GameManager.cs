@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
                 var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(mouseRay, out var mouseHit))
                 {
-                    if (mouseHit.transform.GetChild(0).CompareTag("Player")
+                    if (mouseHit.transform.CompareTag("Player")
                         && mouseHit.transform.GetComponent<PlayerController>().canBePlayed)
                     {
                         SelectPlayer(mouseHit.transform.GetComponent<PlayerController>());

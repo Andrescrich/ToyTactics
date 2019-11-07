@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
         {
             TurnText.text = "EnemyTurn";
         }
+
+        if (GameManager.instance.enemigos.Count == 0) { TurnText.text = "LEVEL COMPLETED"; }
+        else if (GameManager.instance.aliados.Count == 0) { TurnText.text = "LEVEL FAILED"; }
     }
 
     public void SelectPlayer1()

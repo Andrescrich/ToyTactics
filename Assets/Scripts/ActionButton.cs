@@ -26,12 +26,8 @@ public class ActionButton : MonoBehaviour
             deactivateAll();
             return;
         } else {
-            activateAll();
+            activateButtons(!player.GetComponent<PlayerController>().hasMoved,true,(!player.GetComponent<UnitStatus>().IsPassive() && player.GetComponent<UnitStatus>().SpecialReady()),true);
         }
-        if (player.GetComponent<PlayerController>().hasMoved)
-            moveButton.interactable = false;
-        if (player.GetComponent<UnitStatus>().IsPassive() || !player.GetComponent<UnitStatus>().SpecialReady())
-            specialButton.interactable = false;
     }
 
     public void MoveButton()
@@ -75,5 +71,12 @@ public class ActionButton : MonoBehaviour
         attackButton.interactable = true;
         specialButton.interactable = true;
         waitButton.interactable = true;
+    }
+
+    public void activateButtons(bool move, bool attack, bool special, bool wait){
+        moveButton.interactable = move;
+        attackButton.interactable = attack;
+        specialButton.interactable = special;
+        waitButton.interactable = wait;
     }
 }

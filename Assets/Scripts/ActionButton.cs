@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ActionButton : MonoBehaviour
-{
-
+{ 
     public GameObject player;
 
     public Button moveButton;
@@ -79,4 +78,6 @@ public class ActionButton : MonoBehaviour
         specialButton.interactable = special;
         waitButton.interactable = wait;
     }
+
+    
 }

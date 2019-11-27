@@ -22,8 +22,12 @@ public class UIManager : MonoBehaviour
     public Text rangoMovUnidadInfo;
     public Text SpecialInfo;
 
+    public PauseMenu pauseMenu;
+    bool paused;
+
     private void Start()
     {
+        paused = false;
         player1Name.text = GameManager.instance.players[0].name;
         player2Name.text = GameManager.instance.players[1].name;
     }
@@ -54,6 +58,11 @@ public class UIManager : MonoBehaviour
 
         if (GameManager.instance.enemigos.Count == 0) { TurnText.text = "LEVEL COMPLETED"; }
         else if (GameManager.instance.aliados.Count == 0) { TurnText.text = "LEVEL FAILED"; }
+
+        if (Input.GetKeyDown(KeyCode.U)) {
+            if (paused) { pauseMenu.DisplayPauseMenu(); paused = false; }
+            else { pauseMenu.HidePauseMenu(); paused = true; }
+        }
     }
 
     public void SelectPlayer1()

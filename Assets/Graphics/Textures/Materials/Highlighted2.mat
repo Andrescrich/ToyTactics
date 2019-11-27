@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_BlockShader 1
+  m_Name: Highlighted2
   m_Shader: {fileID: -6465566751694194690, guid: 492ea408a72f7c64680627c61247331a,
     type: 3}
   m_ShaderKeywords: 

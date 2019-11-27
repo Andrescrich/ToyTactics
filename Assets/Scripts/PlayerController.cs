@@ -13,27 +13,28 @@ public class PlayerController : MonoBehaviour
     public enum State {None,Menu,MenuAfterMove,SelectMove,SelectAttack,SelectSpecial};
 
     private Animator anim;
-    public State state;
+    [HideInInspector] public State state;
     public Transform currentCube;
     private Transform clickedCube;
     private List<Transform> finalPath; 
-    public List<Transform> nextCubes = new List<Transform>();
-    public List<Transform> nextNextCubes = new List<Transform>();
-
-    public List<Transform> attackCubes = new List<Transform>();
-    private bool possiblePath;
-    public bool hasMoved;
-    private bool enableInput = true;
-    private bool moving;
-    public bool canBePlayed;
-    
-    public Material highlighted;
-    public Material normal;
-    public Material highlighted2;
-    public GameObject selectedTriangle;
-    public Canvas UI;
+    private List<Transform> nextCubes = new List<Transform>();
+    private List<Transform> nextNextCubes = new List<Transform>();
+    private List<Transform> attackCubes = new List<Transform>();
     public Transform clickedEnemy;
     public int range;
+    
+    private bool possiblePath;
+    [HideInInspector] public bool hasMoved;
+    private bool enableInput = true;
+    private bool moving;
+    [HideInInspector] public bool canBePlayed;
+    
+    public Material normal;
+    public Material highlighted;
+    public Material highlighted2;
+    public Material enemyHighlighter;
+    private  GameObject selectedTriangle;
+    public Canvas UI;
 
     private void Awake()
     {
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
                 clickedEnemy = mouseHit.transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
-                Attack(clickedEnemy);
+                anim.SetTrigger("Attack");
             }
         }
         anim.SetBool("Walk", moving);
@@ -175,6 +176,8 @@ public class PlayerController : MonoBehaviour
         foreach (var p in listaTotalDeBlocks)
         {
             p.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
+            Debug.Log(p);
+            yield return new WaitForSecondsRealtime(0.025f);
         }
 
         enableInput = true;
@@ -391,7 +394,7 @@ public class PlayerController : MonoBehaviour
         foreach (var cube in attackCubes)
         {
             if(cube.GetComponent<Walkable>().pieceOnNode.Length > 0)
-                cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
+                cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = enemyHighlighter;
         }
     }
     
@@ -417,7 +420,7 @@ public class PlayerController : MonoBehaviour
         ChangeState();
     }
 
-    private void Attack(Transform objective){
+    public void Attack(Transform objective){
         objective.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
         objective.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = normal;
         EndAction();
@@ -429,7 +432,7 @@ public class PlayerController : MonoBehaviour
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
         }
-    /*    foreach (var cube in nextCubes)
+        /*foreach (var cube in nextCubes)
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
         }

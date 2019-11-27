@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_BlockShader 2
+  m_Name: Highlighted1
   m_Shader: {fileID: -6465566751694194690, guid: bda325685e5492448bf665978c48fa6b,
     type: 3}
   m_ShaderKeywords: 
@@ -20,6 +20,7 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Floats: []
+    m_Floats:
+    - Vector1_ECB2148E: 0.4
     m_Colors:
-    - Color_B84811BD: {r: 0, g: 1, b: 0.18875837, a: 0}
+    - Color_B84811BD: {r: 1, g: 1, b: 1, a: 1}

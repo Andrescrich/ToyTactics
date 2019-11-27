@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TransparentM
-  m_Shader: {fileID: -6465566751694194690, guid: b295c1f330c21a9429717f30e60f02d3,
+  m_Name: Shader Graphs_BlockShader
+  m_Shader: {fileID: -6465566751694194690, guid: bda325685e5492448bf665978c48fa6b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,5 +21,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_2403A351: 0.83
-    m_Colors: []
+    - Vector1_ECB2148E: 0
+    m_Colors:
+    - Color_B84811BD: {r: 0, g: 0, b: 0, a: 0}

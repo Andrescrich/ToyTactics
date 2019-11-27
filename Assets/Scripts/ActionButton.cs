@@ -8,12 +8,9 @@ public class ActionButton : MonoBehaviour
 {
 
     public GameObject player;
-
     public Button moveButton;
     public Button attackButton;
-
     public Button specialButton;
-
     public Button waitButton;
 
 
@@ -22,34 +19,39 @@ public class ActionButton : MonoBehaviour
     }
     private void Update()
     {
-        if (player == null){
+       /* if (player == null){
             deactivateAll();
             return;
         } else {
             activateButtons(!player.GetComponent<PlayerController>().hasMoved,true,(!player.GetComponent<UnitStatus>().IsPassive() && player.GetComponent<UnitStatus>().SpecialReady()),true);
-        }
+        }*/
+
+       /* if (player.GetComponent<PlayerController>().state == PlayerController.State.MenuAfterMove)
+            moveButton.interactable = false;*/
     }
 
     public void MoveButton()
     {
         if (player == null) return;
+        var pController = player.GetComponent<PlayerController>();
         attackButton.interactable = true;
-        player.GetComponent<PlayerController>().MoveAction();
+        if(!pController.hasMoved)
+           pController.MoveAction(pController.range);
         moveButton.interactable = false;
-
     }
 
     public void AttackButton()
     {
         if (player == null) return;
-        moveButton.interactable = true;
+        var pController = player.GetComponent<PlayerController>();
+        if(!pController.hasMoved)
+          moveButton.interactable = true;
         player.GetComponent<PlayerController>().AttackAction();
         attackButton.interactable = false;
     }
 
     public void SpecialButton(){
-        PlayerController pc = player.GetComponent<PlayerController>();
-        //pc.specialAction();
+        var pcController = player.GetComponent<PlayerController>();
     }
 
     public void WaitButton()

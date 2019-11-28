@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine.Editor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +24,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-     //   turnChanging += HighlightPlayables;
     }
 
     private void Start()
@@ -34,6 +35,16 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {
+
+        if (aliados.Count == 0)
+        {
+            StartCoroutine(ReloadScene());
+        } else if (enemigos.Count == 0)
+        {
+            StartCoroutine(LoadNextScene());
+        }
+        
+        
         if (gameState == GameStates.PlayerTurn)
         {
             if (players.Count == 0)
@@ -91,9 +102,23 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = playableMaterial;
         }
     }
+
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSecondsRealtime(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private IEnumerator ReloadScene()
+    {
+        yield return new WaitForSecondsRealtime(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
 
     public enum GameStates
     {
         PlayerTurn, EnemyTurn
     }
+
+

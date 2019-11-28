@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
     {
         NombreUnidadInfo.text = status.gameObject.name + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
         ataqueUnidadInfo.text = "Damage: "+status.damage;
-        rangoMovUnidadInfo.text = "Movment Range: " + status.movementRange;
+        rangoMovUnidadInfo.text = "Movment Range: " + status.MovementRange;
         SpecialInfo.text = "Special: " + status.specialCurrentCD + "/" + status.specialMaxCD + " CD";
 
     }

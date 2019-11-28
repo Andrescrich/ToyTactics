@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+    using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+    public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     public delegate void EndOfTurn();
@@ -11,7 +12,6 @@ public class Player : MonoBehaviour
     public static event EndOfTurn EndOfTurnEvent;
     private void Awake()
     {
-        
         GameManager.turnChanging += AddToPlayable;
     }
 
@@ -47,5 +47,10 @@ public class Player : MonoBehaviour
         GameManager.turnChanging -= AddToPlayable;
         if (GameManager.instance.aliados.Contains(gameObject)) { GameManager.instance.aliados.Remove(gameObject); }
         else if (GameManager.instance.enemigos.Contains(gameObject)) { GameManager.instance.enemigos.Remove(gameObject); }
+    }
+
+    private void OnDisable()
+    {
+        GameManager.turnChanging -= AddToPlayable;
     }
 }

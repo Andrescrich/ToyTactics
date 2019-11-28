@@ -21,7 +21,7 @@ public class QuickInfoUI : MonoBehaviour
     {
         NombreUnidadInfo.text = transform.root.name + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
         ataqueUnidadInfo.text = "Damage: "+status.damage;
-        rangoMovUnidadInfo.text = "Movment Range: " + 0;
+        rangoMovUnidadInfo.text = "Movment Range: " + status.MovementRange;
         SpecialInfo.text = "Special: " + status.specialCurrentCD + "/" + status.specialMaxCD + " CD";
 
     }

@@ -33,9 +33,10 @@ public class ActionButton : MonoBehaviour
     {
         if (player == null) return;
         var pController = player.GetComponent<PlayerController>();
+        var pStatus = player.GetComponent<UnitStatus>();
         attackButton.interactable = true;
         if(!pController.hasMoved)
-           pController.MoveAction(pController.range);
+           pController.MoveAction(pStatus.MovementRange);
         moveButton.interactable = false;
     }
 

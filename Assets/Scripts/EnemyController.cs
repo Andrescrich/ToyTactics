@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using TMPro;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -22,11 +23,13 @@ public class EnemyController : MonoBehaviour
     public List<PlayerController> playersToAttack;
     public GameObject objective;
     public Material normalMaterial;
-
+    private Animator anim;
+    private bool isMoving;
 
     private void Awake()
     {
         RayCastDown();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -38,6 +41,11 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(Action());
     }
 
+    private void Update()
+    {
+        anim.SetBool("Walk", isMoving);
+    }
+
     private IEnumerator Action()
     {
         yield return new WaitForSeconds(1);
@@ -45,7 +53,7 @@ public class EnemyController : MonoBehaviour
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
-            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
+            anim.SetTrigger("Attack");
             yield return new WaitForSeconds(1);
             TurnOver();
             yield break;
@@ -70,7 +78,8 @@ public class EnemyController : MonoBehaviour
                 objectiveCube = nextCube;
             }
         }
-        
+
+        isMoving = true;
         var lookPos = new Vector3(objectiveCube1.position.x, transform.position.y, objectiveCube1.position.z);
         transform.LookAt(lookPos);
 
@@ -89,6 +98,8 @@ public class EnemyController : MonoBehaviour
                 5f * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
+
+        isMoving = false;
         Clear();
         RayCastDown();
         FindPath();
@@ -96,7 +107,7 @@ public class EnemyController : MonoBehaviour
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
-            objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
+            anim.SetTrigger("Attack");
         }
         yield return new WaitForSeconds(1);
         TurnOver();
@@ -142,6 +153,11 @@ public class EnemyController : MonoBehaviour
 
             }
         }
+    }
+
+    public void Attack()
+    {
+        objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
     }
 
     private void Clear()

@@ -7,13 +7,17 @@ using UnityEngine.UI;
 public class UnitStatus : MonoBehaviour
 {
     public string UnitType;
-    public int damage,movementRange,maxHealth,specialMaxCD;
+    public int damage,maxHealth,specialMaxCD;
+    [SerializeField] private int movementRange;
     public int currentHealth,specialCurrentCD;
     private bool passive = false;
     public Slider healthbar, cdbar;
     public GameObject quickUIInfo;
 
+    public int MovementRange => movementRange;
+
     public Canvas UI;
+    
     // Start is called before the first frame update
     void Start()
     {

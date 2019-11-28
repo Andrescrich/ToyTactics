@@ -41,6 +41,11 @@ public class Walkable : MonoBehaviour
     {
         pieceOnNode = Physics.OverlapSphere(transform.position + transform.forward * .5f, .1f);
     }
+
+    private void OnDisable()
+    {
+        Player.EndOfTurnEvent -= CheckWhoIsOnNode;
+    }
 }
 
 [Serializable]

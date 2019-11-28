@@ -11,6 +11,7 @@
         <e p="RobotTVAnimsScript.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="ActionButton.cs" t="Include" />
+          <e p="CameraController.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="MainMenuButtons" t="Include">

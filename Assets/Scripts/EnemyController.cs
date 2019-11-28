@@ -55,7 +55,6 @@ public class EnemyController : MonoBehaviour
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
             anim.SetTrigger("Attack");
             yield return new WaitForSeconds(1);
-            TurnOver();
             yield break;
         }
 
@@ -108,6 +107,8 @@ public class EnemyController : MonoBehaviour
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
             anim.SetTrigger("Attack");
+            yield return new WaitForSeconds(1);
+            yield break;
         }
         yield return new WaitForSeconds(1);
         TurnOver();
@@ -158,6 +159,7 @@ public class EnemyController : MonoBehaviour
     public void Attack()
     {
         objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
+        TurnOver();
     }
 
     private void Clear()

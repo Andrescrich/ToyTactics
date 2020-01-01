@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
+    public AudioMixer audioMixer;
      void Start()
     {
         resolutions = Screen.resolutions;
@@ -35,7 +37,7 @@ public class OptionsMenu : MonoBehaviour
     }
     public void SetVolume(float volume)
     {
-        Debug.Log(volume);
+        audioMixer.SetFloat("volume",volume);
     }
     public void SetQuality(int index )
     {

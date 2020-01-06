@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     public Text ataqueUnidadInfo;
     public Text rangoMovUnidadInfo;
     public Text SpecialInfo;
+    public GameObject animationPanel;
+    public GameObject informationPanel;
+    public GameObject moveButton;
+    public GameObject attackButton;
+    public GameObject speButton;
+    public GameObject waitButton;
 
     public PauseMenu pauseMenu;
     bool paused;
@@ -30,6 +36,16 @@ public class UIManager : MonoBehaviour
         paused = false;
         player1Name.text = GameManager.instance.players[0].name;
         player2Name.text = GameManager.instance.players[1].name;
+        animationPanel = GameObject.Find("ActionWindow");
+        informationPanel = GameObject.Find("InfoWindow");
+        moveButton = GameObject.Find("MoveButton");
+        attackButton = GameObject.Find("AttackButton");
+        speButton = GameObject.Find("SpecButton");
+        waitButton = GameObject.Find("WaitButton");
+        moveButton.gameObject.SetActive(false);
+        attackButton.gameObject.SetActive(false);
+        speButton.gameObject.SetActive(false);
+        waitButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -77,6 +93,10 @@ public class UIManager : MonoBehaviour
 
     public void ShowInfoWindow(UnitStatus status)
     {
+        moveButton.gameObject.SetActive(true);
+        attackButton.gameObject.SetActive(true);
+        speButton.gameObject.SetActive(true);
+        waitButton.gameObject.SetActive(true);
         NombreUnidadInfo.text = status.gameObject.name + "   " + status.currentHealth + "/" + status.maxHealth + " PS";
         ataqueUnidadInfo.text = "Damage: "+status.damage;
         rangoMovUnidadInfo.text = "Movment Range: " + status.MovementRange;
@@ -85,9 +105,15 @@ public class UIManager : MonoBehaviour
     }
     public void stopShowInfoWindow()
     {
+        
         NombreUnidadInfo.text = "";
         ataqueUnidadInfo.text = "";
         rangoMovUnidadInfo.text = "";
         SpecialInfo.text = "";
+        moveButton.gameObject.SetActive(false);
+        attackButton.gameObject.SetActive(false);
+        speButton.gameObject.SetActive(false);
+        waitButton.gameObject.SetActive(false);
+
     }
 }

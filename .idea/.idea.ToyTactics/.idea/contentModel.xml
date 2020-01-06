@@ -8,16 +8,18 @@
       <e p="Assets" t="Include">
         <e p="EnemyAnimsScript.cs" t="Include" />
         <e p="FixeoFastUI.cs" t="Include" />
+        <e p="PlayerAnimScript.cs" t="Include" />
         <e p="QuickInfoUI.cs" t="Include" />
-        <e p="RobotTVAnimsScript.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="ActionButton.cs" t="Include" />
           <e p="CameraController.cs" t="Include" />
+          <e p="EleccionJuguete.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="MainMenuButtons" t="Include">
             <e p="MainMenuButtons.cs" t="Include" />
           </e>
+          <e p="MenuEleccion.cs" t="Include" />
           <e p="Misc" t="Include">
             <e p="HealthbarRotation.cs" t="Include" />
             <e p="PauseMenu.cs" t="Include" />
@@ -26,6 +28,7 @@
           <e p="OptionsMenu.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
+          <e p="Rotacion.cs" t="Include" />
           <e p="UIManager.cs" t="Include" />
           <e p="UnitStatus.cs" t="Include" />
           <e p="Walkable.cs" t="Include" />

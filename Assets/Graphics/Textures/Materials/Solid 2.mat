@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Solid
+  m_Name: Solid 2
   m_Shader: {fileID: -6465566751694194690, guid: bda325685e5492448bf665978c48fa6b,
     type: 3}
   m_ShaderKeywords: 
@@ -23,4 +23,4 @@ Material:
     m_Floats:
     - Vector1_ECB2148E: 0
     m_Colors:
-    - Color_B84811BD: {r: 0.6745098, g: 0.7568628, b: 0.90196085, a: 0}
+    - Color_B84811BD: {r: 0.65882355, g: 0.43529415, b: 0.23137257, a: 0}

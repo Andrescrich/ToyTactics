@@ -297,17 +297,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806613317753083332}
-  m_LocalRotation: {x: 0.09482004, y: -0.8853414, z: 0.18827401, w: 0.41440657}
-  m_LocalPosition: {x: 0, y: 0, z: 2.23}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: 0.09482002, y: -0.8853413, z: 0.18827401, w: 0.4144066}
+  m_LocalPosition: {x: 0, y: 0, z: 2.2300103}
+  m_LocalScale: {x: 1.5000024, y: 1.4999998, z: 1.5000014}
   m_Children:
   - {fileID: 1806613318721398933}
   m_Father: {fileID: 1806613318915498271}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.05, y: 0.94}
+  m_AnchoredPosition: {x: -6.050009, y: 0.9399997}
   m_SizeDelta: {x: 4.74, y: 2.997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1806613317753083390
@@ -914,14 +914,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806613318195189599}
-  m_LocalRotation: {x: 0.09482004, y: -0.8853414, z: 0.18827401, w: 0.41440657}
+  m_LocalRotation: {x: 0.07139825, y: -0.9003283, z: 0.1616215, w: 0.39773077}
   m_LocalPosition: {x: 0, y: 0, z: -0.73}
   m_LocalScale: {x: 0.09, y: 0.02, z: 2.7982843}
   m_Children:
   - {fileID: 1806613318942010088}
   - {fileID: 1806613318140585441}
   m_Father: {fileID: 1806613318915498271}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0.15200001, y: -0.11000001, z: -0.16000001}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1519,8 +1519,8 @@ Transform:
   m_Children:
   - {fileID: 6658807289242138488}
   - {fileID: 1806613319315828217}
-  - {fileID: 1806613317753083389}
   - {fileID: 1806613318195189598}
+  - {fileID: 1806613317753083389}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 250.26399, z: 0}
@@ -1585,10 +1585,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Robot
-  damage: 75
+  damage: 150
   maxHealth: 250
   specialMaxCD: 5
-  movementRange: 1
+  movementRange: 2
   currentHealth: 250
   specialCurrentCD: 2
   healthbar: {fileID: 1806613318942010086}
@@ -1909,7 +1909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1806613319315828217
 Transform:
   m_ObjectHideFlags: 0

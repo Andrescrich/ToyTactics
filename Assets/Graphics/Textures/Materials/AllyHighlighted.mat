@@ -23,4 +23,4 @@ Material:
     m_Floats:
     - Vector1_ECB2148E: 0.4
     m_Colors:
-    - Color_B84811BD: {r: 1, g: 0, b: 0, a: 0}
+    - Color_B84811BD: {r: 1, g: 0.85813504, b: 0, a: 0}

@@ -2657,6 +2657,75 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1001 &938369611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8587590219274225427, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_Name
+      value: EleccionJuguete
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 302.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 289.09998
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871723244906319521, guid: 5662ad33756d1ce4f87f70d8872623e1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5662ad33756d1ce4f87f70d8872623e1, type: 3}
 --- !u!1 &989974676
 GameObject:
   m_ObjectHideFlags: 0

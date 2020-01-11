@@ -983,7 +983,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182457210616864417}
-  m_LocalRotation: {x: 0.09109173, y: 0.8433802, z: -0.15139855, w: 0.50743544}
+  m_LocalRotation: {x: -0.028873008, y: 0.9710362, z: -0.17431457, w: -0.16083993}
   m_LocalPosition: {x: 0, y: 0, z: -0.09}
   m_LocalScale: {x: 0.05, y: 0.015, z: 2.7982802}
   m_Children:
@@ -1240,7 +1240,7 @@ Transform:
   m_GameObject: {fileID: 182457211070875731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.061, y: 1.657, z: -9.465}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999994, y: 0.49999997, z: 0.49999994}
   m_Children:
   - {fileID: 6507100013723132614}
   - {fileID: 182457209922987885}
@@ -1317,8 +1317,8 @@ MonoBehaviour:
   canBePlayed: 0
   normal: {fileID: 2100000, guid: a84da415caaf63e45b795e101afaf5fb, type: 2}
   highlighted: {fileID: 2100000, guid: e439f685e22a4dd48954e6d339851d91, type: 2}
-  highlighted2: {fileID: 2100000, guid: c8e60a1eaf8503542b5bff2cd140c3a9, type: 2}
   enemyHighlighter: {fileID: 2100000, guid: 332919c0e3f19354892723c88757cff3, type: 2}
+  selectedMaterial: {fileID: 0}
   UI: {fileID: 0}
 --- !u!1 &182457211096127897
 GameObject:

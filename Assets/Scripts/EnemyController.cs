@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     public List<PlayerController> playersToAttack;
     public GameObject objective;
     public Material normalMaterial;
+    public Material enemyMaterial;
     private Animator anim;
     private bool isMoving;
 
@@ -126,6 +127,8 @@ public class EnemyController : MonoBehaviour
                 currentCube = playerHit.transform;
             }
         }
+
+        currentCube.GetComponent<Renderer>().sharedMaterial = enemyMaterial;
     }
     
     private void FindPath()

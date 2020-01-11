@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemigos;
     public GameStates gameState = GameStates.PlayerTurn;
     public Material playableMaterial;
-    public Material normalMaterial;
+    public Material selectedMaterial;
 
     public delegate void TurnChange(); 
     public static event TurnChange turnChanging;
@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour
     public void SelectPlayer(PlayerController player)
     {
         player.enabled = true;
-        enabled = false;
-            player.currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
+        enabled = false; 
+        player.currentCube.GetComponent<MeshRenderer>().sharedMaterial = selectedMaterial;
     }
 
     public void NextEnemyTurn()

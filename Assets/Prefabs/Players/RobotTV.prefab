@@ -380,8 +380,8 @@ MonoBehaviour:
   canBePlayed: 0
   normal: {fileID: 2100000, guid: a84da415caaf63e45b795e101afaf5fb, type: 2}
   highlighted: {fileID: 2100000, guid: e439f685e22a4dd48954e6d339851d91, type: 2}
-  highlighted2: {fileID: 2100000, guid: c8e60a1eaf8503542b5bff2cd140c3a9, type: 2}
   enemyHighlighter: {fileID: 2100000, guid: 332919c0e3f19354892723c88757cff3, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 8cf750b7dc84f9e4f9a9510c9d856eeb, type: 2}
   UI: {fileID: 0}
 --- !u!65 &8541955014507661099
 BoxCollider:

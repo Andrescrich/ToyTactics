@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
     
     public Material normal;
     public Material highlighted;
-    public Material highlighted2;
     public Material enemyHighlighter;
+    public Material selectedMaterial;
     private  GameObject selectedTriangle;
     public Canvas UI;
 
@@ -72,6 +72,16 @@ public class PlayerController : MonoBehaviour
                 attackCubes.Contains(mouseHit.transform.GetComponent<EnemyController>().currentCube))
             {
                 clickedEnemy = mouseHit.transform;
+                var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
+                transform.LookAt(lookPos);
+                anim.SetTrigger("Attack");
+            }
+
+            if (state == State.SelectAttack && mouseHit.transform.GetComponent<Walkable>() != null &&
+                mouseHit.transform.GetComponent<Walkable>().pieceOnNode.Length > 0 &&
+                attackCubes.Contains(mouseHit.transform))
+            {
+                clickedEnemy = mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
                 anim.SetTrigger("Attack");
@@ -138,6 +148,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator MoveActionCor(int range)
     {
         ChangeState();
+        currentCube.GetComponent<Renderer>().sharedMaterial = normal;
         state = State.SelectMove;
         var listaDeListasDeBlocks = new List<List<Transform>>();
         var listaTotalDeBlocks = new List<Transform>();
@@ -257,83 +268,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-   /* private void MoveToClicked()
-    {
-        if (clickedCube == null) return;
-        foreach (var cube in nextCubes)
-        {
-            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        }
-
-        foreach (var cube in nextNextCubes)
-        {
-            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        }
-        var lookPos = new Vector3(clickedCube.position.x, transform.position.y, clickedCube.position.z);
-        transform.LookAt(lookPos);
-        
-        if (nextCubes.Contains(clickedCube))
-            transform.position = Vector3.MoveTowards(transform.position, clickedCube.GetComponent<Walkable>().nodePos,
-                5f * Time.fixedDeltaTime);
-        if (nextNextCubes.Contains(clickedCube))
-        {
-            var auxCube = nextCubes.First();
-            foreach (var cube in nextCubes)
-            {
-                if (Vector3.Distance(clickedCube.position, auxCube.position) > Vector3.Distance(
-                        clickedCube.position, cube.position))
-                {
-                    auxCube = cube;
-                }
-            }
-            moving = true;
-            StartCoroutine(Move2Blocks(auxCube, clickedCube));
-        }
-        ReachedClicked();
-    }
-    
-    private IEnumerator Move2Blocks(Transform firstCube, Transform secondCube)
-    {
-        var lookPos = new Vector3(firstCube.position.x, transform.position.y, firstCube.position.z);
-        transform.LookAt(lookPos);
-        
-        while (transform.position != firstCube.GetComponent<Walkable>().nodePos)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, firstCube.GetComponent<Walkable>().nodePos,
-                5f * Time.fixedDeltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        
-        var lookPos2 = new Vector3(secondCube.position.x, transform.position.y, secondCube.position.z);
-        transform.LookAt(lookPos2);
-        while (transform.position != secondCube.GetComponent<Walkable>().nodePos)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, secondCube.GetComponent<Walkable>().nodePos,
-                5f * Time.fixedDeltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        ReachedClicked();
-    }
-   
-    public void MoveAction(){
-       if(nextCubes.Count == 0) 
-           FindPath();
-       ChangeState();
-       state = State.SelectMove;
-       if (!possiblePath && state == State.SelectMove)
-       {
-           foreach (var cube in nextCubes)
-           {
-               cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted;
-           }
-
-           foreach (var cube in nextNextCubes)
-           {
-               cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = highlighted2;
-           }
-       }
-   }*/
-    
     private void Clear()
     { 
         nextCubes.Clear();
@@ -359,8 +293,6 @@ public class PlayerController : MonoBehaviour
         hasMoved = true;
         enableInput = true;
         RayCastDown();
-       // Clear();
-       // FindPath();
         moving = false;
         state = State.MenuAfterMove;
     }
@@ -370,8 +302,6 @@ public class PlayerController : MonoBehaviour
         possiblePath = false;
         enableInput = true;
         RayCastDown();
-  //      Clear();
-  //     FindPath();
         GetComponent<Player>().RemoveFromPlayable();
         moving = false;
         canBePlayed = false;
@@ -428,18 +358,10 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeState()
     {
+        
         foreach (var cube in attackCubes)
         {
             cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
         }
-        /*foreach (var cube in nextCubes)
-        {
-            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        }
-
-        foreach (var cube in nextNextCubes)
-        {
-            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        }*/
     }
 }

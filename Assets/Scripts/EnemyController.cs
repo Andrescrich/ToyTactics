@@ -50,7 +50,6 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Action()
     {
         yield return new WaitForSeconds(1);
-        currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
@@ -58,7 +57,7 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(1);
             yield break;
         }
-
+        currentCube.GetComponent<MeshRenderer>().sharedMaterial = normalMaterial;
         var objectiveCube1 = nextCubesToMove.First();
         objectiveCube = nextCubesToMove.First();
         foreach (var nextCube in nextCubesToMove)
@@ -195,5 +194,10 @@ public class EnemyController : MonoBehaviour
         GetComponent<Player>().RemoveFromPlayable();
         GameManager.instance.NextEnemyTurn();
         enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        currentCube.GetComponent<Renderer>().sharedMaterial = normalMaterial;
     }
 }

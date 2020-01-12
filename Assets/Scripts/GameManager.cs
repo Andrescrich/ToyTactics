@@ -64,6 +64,16 @@ public class GameManager : MonoBehaviour
                         SelectPlayer(mouseHit.transform.GetComponent<PlayerController>());
                         enabled = false;
                     }
+
+                    if (mouseHit.transform.GetComponent<Walkable>() != null &&
+                        mouseHit.transform.GetComponent<Walkable>().pieceOnNode.Length > 0 &&
+                        mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().CompareTag("Player") &&
+                        mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().GetComponent<PlayerController>()
+                            .canBePlayed)
+                    {
+                        SelectPlayer(mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().GetComponent<PlayerController>());
+                        enabled = false;
+                    }
                 }
             }
         } else if (gameState == GameStates.EnemyTurn)

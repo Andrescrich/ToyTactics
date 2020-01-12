@@ -21,13 +21,13 @@ public class PlayerController : MonoBehaviour
     private List<Transform> nextNextCubes = new List<Transform>();
     private List<Transform> attackCubes = new List<Transform>();
     public Transform clickedEnemy;
-    public int range;
-    
+
     private bool possiblePath;
     [HideInInspector] public bool hasMoved;
     private bool enableInput = true;
     private bool moving;
     [HideInInspector] public bool canBePlayed;
+    private bool attacking;
     
     public Material normal;
     public Material highlighted;
@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
             if (state == State.SelectAttack && mouseHit.transform.GetComponent<EnemyController>() != null &&
                 attackCubes.Contains(mouseHit.transform.GetComponent<EnemyController>().currentCube))
             {
+                if (attacking) return;
+                attacking = true;
                 clickedEnemy = mouseHit.transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
@@ -81,6 +83,8 @@ public class PlayerController : MonoBehaviour
                 mouseHit.transform.GetComponent<Walkable>().pieceOnNode.Length > 0 &&
                 attackCubes.Contains(mouseHit.transform))
             {
+                if (attacking) return;
+                attacking = true;
                 clickedEnemy = mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
@@ -89,16 +93,7 @@ public class PlayerController : MonoBehaviour
         }
         anim.SetBool("Walk", moving);
     }
-
-    private void FixedUpdate()
-    {
-      /*  if (state != State.SelectMove || !possiblePath) return;
-        if (!moving)
-            MoveToClicked();*/
-        
-    }
-
-
+    
     private void RayCastDown()
     {
         var playerRay = new Ray(transform.position + transform.up * 0.5f, -transform.up);
@@ -109,25 +104,6 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.GetChild(0).position, -transform.up);
-    }
-
-    private void FindPath()
-    {
-        foreach (var path in currentCube.GetComponent<Walkable>().possiblePaths)
-        {
-            if (path.active && path.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
-                nextCubes.Add(path.target);
-           
-        }
-        foreach (var p in nextCubes)
-        {
-            foreach (var path2 in p.GetComponent<Walkable>().possiblePaths)
-            {
-                if (!nextCubes.Contains(path2.target) && path2.active && currentCube != path2.target &&
-                    !nextNextCubes.Contains(path2.target) && path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0)
-                    nextNextCubes.Add(path2.target);
-            }
-        }
     }
 
     private void FindAttack()
@@ -147,8 +123,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator MoveActionCor(int range)
     {
-        ChangeState();
-        currentCube.GetComponent<Renderer>().sharedMaterial = normal;
         state = State.SelectMove;
         var listaDeListasDeBlocks = new List<List<Transform>>();
         var listaTotalDeBlocks = new List<Transform>();
@@ -219,6 +193,10 @@ public class PlayerController : MonoBehaviour
             if (validClickedCube != null)
             {
                 moving = true;
+                UI.GetComponent<ActionButton>().waitButton.interactable = false;
+                UI.GetComponent<ActionButton>().attackButton.interactable = false;
+                UI.GetComponent<ActionButton>().specialButton.interactable = false;
+                
                 var listaDePaths = new List<Transform>(new Transform[Index]);
                 for (var i = 0; i < Index; i++)
                 {
@@ -265,7 +243,9 @@ public class PlayerController : MonoBehaviour
         foreach (var p in listaTotalDeBlocks)
         {
             p.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
+            
         }
+        currentCube.GetComponent<Renderer>().sharedMaterial = selectedMaterial;
     }
     
     private void Clear()
@@ -289,16 +269,20 @@ public class PlayerController : MonoBehaviour
     private void ReachedClicked()
     {
         if (transform.position != clickedCube.GetComponent<Walkable>().nodePos) return;
+        UI.GetComponent<ActionButton>().waitButton.interactable = true;
+        UI.GetComponent<ActionButton>().attackButton.interactable = true;
+        UI.GetComponent<ActionButton>().specialButton.interactable = true;
         possiblePath = false;
         hasMoved = true;
         enableInput = true;
+        currentCube.GetComponent<Renderer>().sharedMaterial = normal;
         RayCastDown();
+        
         moving = false;
         state = State.MenuAfterMove;
     }
 
     private void EndAction(){
-        ChangeState();
         possiblePath = false;
         enableInput = true;
         RayCastDown();
@@ -312,14 +296,14 @@ public class PlayerController : MonoBehaviour
         state = State.None;
     }
 
-    public void WaitAction(){
-        ChangeState();
+    public void WaitAction()
+    { 
+        currentCube.GetComponent<Renderer>().sharedMaterial = normal;
         EndAction();
     }
 
     public void AttackAction(){
         state = State.SelectAttack;
-        ChangeState();
         FindAttack();
         foreach (var cube in attackCubes)
         {
@@ -331,6 +315,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         Clear();
+        attacking = false;
         hasMoved = false;
         state = State.Menu;
         selectedTriangle.SetActive(true);
@@ -347,21 +332,13 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.whoIsPlaying = null;
         UI.GetComponent<ActionButton>().moveButton.interactable = true;
         UI.GetComponent<ActionButton>().attackButton.interactable = true;
-        ChangeState();
     }
 
-    public void Attack(Transform objective){
-        objective.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
-        objective.GetComponent<EnemyController>().currentCube.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        EndAction();
-    }
-
-    private void ChangeState()
+    //Llamada en el frame de impacto de la animación de ataque
+    public void Attack(Transform objective)
     {
-        
-        foreach (var cube in attackCubes)
-        {
-            cube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
-        }
+        objective.GetComponent<UnitStatus>().ChangeHealth(-1*gameObject.GetComponent<UnitStatus>().damage);
+        currentCube.GetComponent<Renderer>().sharedMaterial = normal;
+        EndAction();
     }
 }

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4612,7 +4612,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.53
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8116,7 +8116,6 @@ MonoBehaviour:
   state: 0
   currentCube: {fileID: 0}
   clickedEnemy: {fileID: 0}
-  range: 0
   hasMoved: 0
   canBePlayed: 0
   normal: {fileID: 2100000, guid: dd091fe3671f0b946bc0e6daa83fb432, type: 2}
@@ -10739,6 +10738,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 182457210616864422, guid: fecaf62acd4bfed4082d120ef9010b4b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.099410556
+      objectReference: {fileID: 0}
+    - target: {fileID: 182457210616864422, guid: fecaf62acd4bfed4082d120ef9010b4b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8483937
+      objectReference: {fileID: 0}
+    - target: {fileID: 182457210616864422, guid: fecaf62acd4bfed4082d120ef9010b4b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.18589105
+      objectReference: {fileID: 0}
+    - target: {fileID: 182457210616864422, guid: fecaf62acd4bfed4082d120ef9010b4b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.48558235
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fecaf62acd4bfed4082d120ef9010b4b, type: 3}

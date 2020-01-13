@@ -16,4 +16,9 @@ public class PlayerAnimScript : MonoBehaviour
     {
         pComp.Attack(pComp.clickedEnemy);
     }
+
+    public void Death()
+    {
+        Destroy(transform.root.gameObject);
+    }
 }

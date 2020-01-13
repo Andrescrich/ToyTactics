@@ -325,6 +325,11 @@ public class PlayerController : MonoBehaviour
         UI.GetComponent<UIManager>().ShowInfoWindow(gameObject.GetComponent<UnitStatus>());
     }
 
+    private void OnDestroy()
+    {
+        currentCube.gameObject.GetComponent<MeshRenderer>().sharedMaterial = normal;
+    }
+
     private void OnDisable()
     {
         selectedTriangle.SetActive(false);

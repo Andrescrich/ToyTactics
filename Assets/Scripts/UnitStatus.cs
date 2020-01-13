@@ -15,9 +15,16 @@ public class UnitStatus : MonoBehaviour
     public GameObject quickUIInfo;
 
     public int MovementRange => movementRange;
-
+    private Animator anim;
     public Canvas UI;
-    
+    private static readonly int Death = Animator.StringToHash("Death");
+    private static readonly int Damage = Animator.StringToHash("Damage");
+
+    private void Awake()
+    {
+        anim = transform.GetChild(0).GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +49,12 @@ public class UnitStatus : MonoBehaviour
         currentHealth = currentHealth + amount;
         currentHealth = Math.Min(currentHealth, maxHealth);
         currentHealth = Math.Max(currentHealth, 0);
-        //change healthbar (Animation?)
         healthbar.value = (float)currentHealth/maxHealth;
         updateHealthText();
-        if(currentHealth == 0){
-            Death();
-        }
+        if(currentHealth == 0)
+            DeathAnim();
+        else 
+            DamageAnim();
     }
 
     public void startTurn()
@@ -97,9 +104,9 @@ public class UnitStatus : MonoBehaviour
         quickUIInfo.SetActive(false);
     }
 
-    private void Death()
+    private void DeathAnim()
     {
-        Destroy(gameObject);
+        anim.SetTrigger(Death);
     }
 
     public bool IsPassive()
@@ -110,5 +117,10 @@ public class UnitStatus : MonoBehaviour
     public bool SpecialReady()
     {
         return specialMaxCD == specialCurrentCD;
+    }
+
+    private void DamageAnim()
+    {
+        anim.SetTrigger(Damage);
     }
 }

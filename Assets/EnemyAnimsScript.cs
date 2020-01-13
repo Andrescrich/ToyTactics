@@ -21,4 +21,9 @@ public class EnemyAnimsScript : MonoBehaviour
     {
         eComp.Attack();
     }
+    
+    public void Death()
+    {
+        Destroy(transform.root.gameObject);
+    }    
 }

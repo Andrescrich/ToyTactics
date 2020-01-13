@@ -914,7 +914,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806613318195189599}
-  m_LocalRotation: {x: 0.09482001, y: -0.8853413, z: 0.188274, w: 0.41440663}
+  m_LocalRotation: {x: 0.07139794, y: -0.90032905, z: 0.16162163, w: 0.39772913}
   m_LocalPosition: {x: 0, y: 0, z: -0.73}
   m_LocalScale: {x: 0.09, y: 0.02, z: 2.7982843}
   m_Children:
@@ -1539,7 +1539,6 @@ MonoBehaviour:
   state: 0
   currentCube: {fileID: 0}
   clickedEnemy: {fileID: 0}
-  range: 1
   hasMoved: 0
   canBePlayed: 0
   normal: {fileID: 2100000, guid: a84da415caaf63e45b795e101afaf5fb, type: 2}

@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Cube2
-  damage: 40
+  damage: 50
   maxHealth: 300
   specialMaxCD: 5
   movementRange: 4

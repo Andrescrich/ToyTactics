@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public Material selectedMaterial;
     private  GameObject selectedTriangle;
     public Canvas UI;
+    private static readonly int Attack1 = Animator.StringToHash("Attack");
+    private static readonly int Walk = Animator.StringToHash("Walk");
 
     private void Awake()
     {
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
                 clickedEnemy = mouseHit.transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
-                anim.SetTrigger("Attack");
+                anim.SetTrigger(Attack1);
             }
 
             if (state == State.SelectAttack && mouseHit.transform.GetComponent<Walkable>() != null &&
@@ -88,10 +90,10 @@ public class PlayerController : MonoBehaviour
                 clickedEnemy = mouseHit.transform.GetComponent<Walkable>().pieceOnNode.First().transform;
                 var lookPos = new Vector3(clickedEnemy.position.x, transform.position.y, clickedEnemy.position.z);
                 transform.LookAt(lookPos);
-                anim.SetTrigger("Attack");
+                anim.SetTrigger(Attack1);
             }
         }
-        anim.SetBool("Walk", moving);
+        anim.SetBool(Walk, moving);
     }
     
     private void RayCastDown()

@@ -1584,7 +1584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Robot
-  damage: 150
+  damage: 50
   maxHealth: 250
   specialMaxCD: 5
   movementRange: 2

@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
     public Material enemyMaterial;
     private Animator anim;
     private bool isMoving;
+    private static readonly int Walk = Animator.StringToHash("Walk");
+    private static readonly int Attack1 = Animator.StringToHash("Attack");
 
     private void Awake()
     {
@@ -38,22 +40,22 @@ public class EnemyController : MonoBehaviour
         Clear();
         RayCastDown();
         FindPath();
-        SelectObjective();
         StartCoroutine(Action());
     }
 
     private void Update()
     {
-        anim.SetBool("Walk", isMoving);
+        anim.SetBool(Walk, isMoving);
     }
 
     private IEnumerator Action()
     {
         yield return new WaitForSeconds(1);
+        SelectObjective();
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
-            anim.SetTrigger("Attack");
+            anim.SetTrigger(Attack1);
             yield return new WaitForSeconds(1);
             yield break;
         }
@@ -106,7 +108,7 @@ public class EnemyController : MonoBehaviour
         if (cubesOnRange1.Contains(objective.GetComponent<PlayerController>().currentCube))
         {
             transform.LookAt(new Vector3(objective.transform.position.x, transform.transform.position.y, objective.transform.position.z));
-            anim.SetTrigger("Attack");
+            anim.SetTrigger(Attack1);
             yield return new WaitForSeconds(1);
             yield break;
         }
@@ -153,14 +155,12 @@ public class EnemyController : MonoBehaviour
                     if (path2.target.GetComponent<Walkable>().pieceOnNode.Length == 0 && !nextNextCubesToMove.Contains(path2.target)) 
                         nextNextCubesToMove.Add(path2.target);
                 }
-
             }
         }
     }
 
     public void Attack()
     {
-
         objective.gameObject.GetComponent<UnitStatus>().ChangeHealth(-gameObject.GetComponent<UnitStatus>().damage);
         TurnOver();
     }

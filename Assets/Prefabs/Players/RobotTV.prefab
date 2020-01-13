@@ -420,10 +420,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitType: Cube
-  damage: 100
+  damage: 70
   maxHealth: 200
   specialMaxCD: 0
-  movementRange: 3
+  movementRange: 2
   currentHealth: 200
   specialCurrentCD: 0
   healthbar: {fileID: 8541955015160879433}

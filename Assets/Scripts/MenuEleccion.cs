@@ -29,4 +29,17 @@ public class MenuEleccion : MonoBehaviour
         player = GameObject.Find("EleccionJuguete");
         player.GetComponent<EleccionJuguete>().RacketSelect();
     }
+
+    public void AnquiloSelect()
+    {
+        player = GameObject.Find("EleccionJuguete");
+        player.GetComponent<EleccionJuguete>().AniquiloSelect();
+    }
+
+    public void ClownSelect()
+    {
+        player = GameObject.Find("EleccionJuguete");
+        player.GetComponent<EleccionJuguete>().ClownSelect();
+    }
+
 }

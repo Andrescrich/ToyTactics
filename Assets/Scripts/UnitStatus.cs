@@ -106,7 +106,9 @@ public class UnitStatus : MonoBehaviour
 
     private void DeathAnim()
     {
+        transform.GetChild(0).transform.parent = null;
         anim.SetTrigger(Death);
+        Destroy(gameObject);
     }
 
     public bool IsPassive()

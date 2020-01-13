@@ -21,6 +21,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
+<<<<<<< Updated upstream
     - Vector1_ECB2148E: 0.86
+=======
+    - Vector1_ECB2148E: 0.2
+>>>>>>> Stashed changes
     m_Colors:
     - Color_B84811BD: {r: 1, g: 1, b: 1, a: 0}
